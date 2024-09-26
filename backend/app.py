@@ -10,12 +10,19 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all domains
 
-# MySQL Database Configuration
+# MySQL Database Configuration (Locally)
+# DB_CONFIG = {
+#    'host': os.getenv('DATABASE_HOST'),
+#    'user': os.getenv('DATABASE_USER'),
+#    'password': os.getenv('DATABASE_PASSWORD'),
+#    'database': os.getenv('DATABASE_NAME')
+#}
+
 DB_CONFIG = {
-    'host': os.getenv('DATABASE_HOST'),
-    'user': os.getenv('DATABASE_USER'),
-    'password': os.getenv('DATABASE_PASSWORD'),
-    'database': os.getenv('DATABASE_NAME')
+    'host': 'mysql',  # Use the service name defined in docker-compose.yml
+    'user': 'appuser',
+    'password': 'apppassword',
+    'database': 'app_db'
 }
 
 # Initialize Database

@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend  # Path to your backend's Dockerfile
+    container_name: app-backend
+    environment:
+      DB_HOST: mysql  # Name of the MySQL service
+      DB_USER: appuser
+      DB_PASSWORD: apppassword
+      DB_NAME: app_db
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql  # Wait for MySQL to start before starting the backend
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:5.7  # Use the official MySQL image
+    container_name: app-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Set MySQL root password
+      MYSQL_DATABASE: app_db  # Create a database named app_db
+      MYSQL_USER: appuser  # Create a user named appuser
+      MYSQL_PASSWORD: apppassword  # Set password for appuser
+    ports:
+      - "3307:3306"  # Expose MySQL port. Usually 3306 but the port is already being in use locally by MySQL.
+    networks:
+      - app-network
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init/init.sql:/docker-entrypoint-initdb.d/init.sql  # Mount the SQL script
+    
+  frontend:
+    build: ./frontend  # Path to your frontend's Dockerfile
+    container_name: app-frontend
+    ports:
+      - "3000:3000"  # Expose frontend port
+    depends_on:
+      - backend  # Wait for the backend to start before starting the frontend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:  # This defines the volume to persist MySQL dat
