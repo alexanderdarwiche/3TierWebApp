@@ -1,16 +1,21 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import mysql.connector
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all domains
 
 # MySQL Database Configuration
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'root', 
-    'database': 'app' 
+    'host': os.getenv('DATABASE_HOST'),
+    'user': os.getenv('DATABASE_USER'),
+    'password': os.getenv('DATABASE_PASSWORD'),
+    'database': os.getenv('DATABASE_NAME')
 }
 
 # Initialize Database
@@ -50,6 +55,7 @@ def add_item():
 
     return jsonify({'message': 'Item added successfully!'}), 201
 
+# Test the connection to the database
 @app.route('/test', methods=['GET'])
 def test_connection():
     try:
