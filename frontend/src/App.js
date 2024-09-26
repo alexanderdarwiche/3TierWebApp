@@ -30,12 +30,26 @@ function App() {
     }
   };
 
+  const deleteItem = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/items/${id}`);
+      fetchItems();  // Refresh the list after deletion
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
+
   return (
     <div className="container mt-5">
       <h1 className="text-center">Items</h1>
       <ul className="list-group mt-3">
         {items.map(item => (
-          <li key={item.id} className="list-group-item">{item.name}</li>
+          <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+            {item.name}
+            <button className="btn btn-danger btn-sm" onClick={() => deleteItem(item.id)}>
+              Delete
+            </button>
+          </li>
         ))}
       </ul>
       <div className="input-group mt-4">
