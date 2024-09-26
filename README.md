@@ -17,7 +17,7 @@ Start the backend so the API is working correctly. Make sure there is a connecti
 
 --------------------------
 
-View database items on http://localhost:500/api/items
+View database items on http://localhost:5000/api/items
 
 --------------------------
 
