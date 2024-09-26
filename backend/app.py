@@ -55,6 +55,20 @@ def add_item():
 
     return jsonify({'message': 'Item added successfully!'}), 201
 
+# API to update an item by ID
+@app.route('/api/items/<int:id>', methods=['PUT'])
+def update_item(id):
+    data = request.get_json()
+    name = data['name']
+    
+    conn = mysql.connector.connect(**DB_CONFIG)
+    cursor = conn.cursor()
+    cursor.execute("UPDATE items SET name = %s WHERE id = %s", (name, id))
+    conn.commit()
+    conn.close()
+
+    return jsonify({'message': 'Item updated successfully!'}), 200
+
 # API to remove an item
 @app.route('/api/items/<int:item_id>', methods=['DELETE'])
 def remove_item(item_id):
