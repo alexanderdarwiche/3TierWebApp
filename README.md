@@ -37,3 +37,11 @@ View web interface at http://localhost:3000/
 
 --------------------------
 
+## To make sure the API is working without having to use Postman, use cUrl for testing the requests easy, for example:
+
+curl -X DELETE http://localhost:5000/api/items/1
+{
+  "message": "Item removed successfully!"
+}
+
+

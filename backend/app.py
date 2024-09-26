@@ -55,6 +55,21 @@ def add_item():
 
     return jsonify({'message': 'Item added successfully!'}), 201
 
+# API to remove an item
+@app.route('/api/items/<int:item_id>', methods=['DELETE'])
+def remove_item(item_id):
+    conn = mysql.connector.connect(**DB_CONFIG)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM items WHERE id = %s", (item_id,))
+    conn.commit()
+    if cursor.rowcount > 0:
+        message = 'Item removed successfully!'
+    else:
+        message = 'Item not found!'
+    conn.close()
+
+    return jsonify({'message': message}), 200
+
 # Test the connection to the database
 @app.route('/test', methods=['GET'])
 def test_connection():
