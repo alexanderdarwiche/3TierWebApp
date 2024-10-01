@@ -8,13 +8,16 @@ function App() {
   const [editingItemId, setEditingItemId] = useState(null); // Track the item being edited
   const [editedItemName, setEditedItemName] = useState(''); // Track the new name for the edited item
 
+  // Use environment variable or fallback to localhost for development
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+
   useEffect(() => {
     fetchItems();
   }, []);
 
   const fetchItems = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/items');
+      const response = await axios.get(`${backendUrl}/api/items`);
       setItems(response.data);
     } catch (error) {
       console.error('Error fetching items:', error);
@@ -24,7 +27,7 @@ function App() {
   const addItem = async () => {
     if (!newItemName) return; // Prevent adding empty items
     try {
-      await axios.post('http://localhost:5000/api/items', { name: newItemName });
+      await axios.post(`${backendUrl}/api/items`, { name: newItemName });
       setNewItemName('');
       fetchItems();  // Refresh the list after adding
     } catch (error) {
@@ -34,7 +37,7 @@ function App() {
 
   const deleteItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/items/${id}`);
+      await axios.delete(`${backendUrl}/api/items/${id}`);
       fetchItems();  // Refresh the list after deletion
     } catch (error) {
       console.error('Error deleting item:', error);
@@ -54,7 +57,7 @@ function App() {
   const updateItem = async (id) => {
     if (!editedItemName) return; // Prevent updating with an empty name
     try {
-      await axios.put(`http://localhost:5000/api/items/${id}`, { name: editedItemName });
+      await axios.put(`${backendUrl}/api/items/${id}`, { name: editedItemName });
       fetchItems();  // Refresh the list after updating
       setEditingItemId(null); // Exit editing mode
       setEditedItemName(''); // Clear the input field
