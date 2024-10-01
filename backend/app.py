@@ -4,17 +4,14 @@ import mysql.connector
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
-
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all domains
 
 DB_CONFIG = {
-    'host': os.getenv('DATABASE_HOST'),
-    'user': os.getenv('DATABASE_USER'),
-    'password': os.getenv('DATABASE_PASSWORD'),
-    'database': os.getenv('DATABASE_NAME')
+    'host': 'mysql-container',
+    'user': 'appuser',
+    'password': 'apppassword',
+    'database': 'app_db'
 }
 
 # Initialize Database
