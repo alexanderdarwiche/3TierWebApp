@@ -10,6 +10,7 @@ CORS(app)  # Enable CORS for all domains
 DB_CONFIG = {
     'host': 'mysql-container',
     'user': 'appuser',
+    'port': 3306,
     'password': 'apppassword',
     'database': 'app_db'
 }
