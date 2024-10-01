@@ -11,7 +11,7 @@ function App() {
   // Use environment variable or fallback to localhost for development
   /* In a Azure environment, set the REACT_APP_BACKEND_URL environment variable to the appropriate URL of your backend.
   For example, if your backend is hosted at https://mybackend.azurecontainerapps.io, set that as the environment variable in your Azure configuration.*/
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+  const backendUrl = 'https://backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io';
 
   useEffect(() => {
     fetchItems();
