@@ -19,4 +19,4 @@ ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
 # Run the Flask app with retry mechanism to make sure mysql container is ready before running the backend.
-CMD ["sh", "-c", "while ! nc -z mysql 3306; do sleep 1; done; flask run"]
+CMD ["sh", "-c", "while ! nc -z mysql-container 3306; do sleep 1; done; flask run"]
