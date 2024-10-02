@@ -1,0 +1,3 @@
+1. When deploying MySQL containers, remember that MySQL communicates over TCP and not HTTP when setting up the Ingress.
+2. In this branch, all the env variables are hardcoded which is not optimal, remember to change this.
+3. Still error deplying the items; table in MySQL when deplying the application, check the backend to fix this error.
