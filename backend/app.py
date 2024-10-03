@@ -13,6 +13,7 @@ CORS(app)  # Enable CORS for all domains
 DB_CONFIG = {
     'host': os.getenv('DATABASE_HOST'),
     'user': os.getenv('DATABASE_USER'),
+    'port': os.getenv('DATABASE_PORT'),
     'password': os.getenv('DATABASE_PASSWORD'),
     'database': os.getenv('DATABASE_NAME')
 }
