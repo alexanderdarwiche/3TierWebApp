@@ -1,10 +1,9 @@
 name: Push to azure registry
 
-on:
-  workflow_run:
-    workflows: ["push-image.yml"]  # The name of the first workflow
-    types:
-      - completed  # Trigger after the first workflow completes successfully
+  # Trigger on push and pull request events
+on: 
+    push:
+    pull_request:
 
 jobs:
   # Job for backend Docker image
