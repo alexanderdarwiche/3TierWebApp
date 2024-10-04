@@ -1,39 +1,70 @@
-name: Push to azure registry
+name: Docker Image CI and Deploy to Azure
 
-  # Trigger on push and pull request events
-on: 
-    push:
-    pull_request:
+on:
+  push:
+    branches:
+      - azure  # Trigger on push to the azure branch
+  pull_request:
+    branches:
+      - azure  # Trigger on pull requests to the azure branch
 
 jobs:
-  # Job for backend Docker image
-  todo-service:
+  # Build and push the backend image
+  backend:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Log in to Azure Container Registry
-      run: |
-        echo ${{ secrets.AZURE_ACR_PASSWORD }} | docker login todoregister.azurecr.io -u ${{ secrets.AZURE_ACR_USERNAME }} --password-stdin
+      # Log in to Azure using user credentials
+      - name: Azure Login
+        run: |
+          echo "${{ secrets.AZURE_PASSWORD }}" | az login -u "${{ secrets.AZURE_USERNAME }}" --password-stdin
 
-    - name: Build the Docker image for backend
-      run: docker build ./backend -t todoregister.azurecr.io/testazure-backend:latest
+      - name: Log in to Azure Container Registry
+        run: |
+          echo "${{ secrets.AZURE_ACR_PASSWORD }}" | docker login todoregister.azurecr.io -u "${{ secrets.AZURE_ACR_USERNAME }}" --password-stdin
 
-    - name: Push backend image to Azure Container Registry
-      run: docker push todoregister.azurecr.io/testazure-backend:latest
+      - name: Build and tag the Docker image for backend
+        run: docker build ./backend -t todoregister.azurecr.io/azure-backend:latest
 
-  # Job for frontend Docker image
+      - name: Push the backend image to Azure Container Registry
+        run: docker push todoregister.azurecr.io/azure-backend:latest
+
+      - name: Deploy backend to Azure Container Apps
+        run: |
+          az containerapp update --name azure-backend-container \
+                                 --resource-group todo-rg \
+                                 --image todoregister.azurecr.io/azure-backend:latest \
+                                 --set-env DATABASE_HOST=mysql-container \
+                                 --set-env DATABASE_USER=appuser \
+                                 --set-env DATABASE_PORT=3306 \
+                                 --set-env DATABASE_PASSWORD=apppassword \
+                                 --set-env DATABASE_NAME=app_db
+
+  # Build and push the frontend image
   frontend:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Log in to Azure Container Registry
-      run: |
-        echo ${{ secrets.AZURE_ACR_PASSWORD }} | docker login todoregister.azurecr.io -u ${{ secrets.AZURE_ACR_USERNAME }} --password-stdin
+      # Log in to Azure using user credentials
+      - name: Azure Login
+        run: |
+          echo "${{ secrets.AZURE_PASSWORD }}" | az login -u "${{ secrets.AZURE_USERNAME }}" --password-stdin
 
-    - name: Build the Docker image for frontend
-      run: docker build ./frontend -t todoregister.azurecr.io/testazure-frontend:latest
+      - name: Log in to Azure Container Registry
+        run: |
+          echo "${{ secrets.AZURE_ACR_PASSWORD }}" | docker login todoregister.azurecr.io -u "${{ secrets.AZURE_ACR_USERNAME }}" --password-stdin
 
-    - name: Push frontend image to Azure Container Registry
-      run: docker push todoregister.azurecr.io/testazure-frontend:latest
+      - name: Build and tag the Docker image for frontend
+        run: docker build ./frontend -t todoregister.azurecr.io/azure-frontend:latest
+
+      - name: Push the frontend image to Azure Container Registry
+        run: docker push todoregister.azurecr.io/azure-frontend:latest
+
+      - name: Deploy frontend to Azure Container Apps
+        run: |
+          az containerapp update --name azure-frontend-container \
+                                 --resource-group todo-rg \
+                                 --image todoregister.azurecr.io/azure-frontend:latest \
+                                 --set-env REACT_APP_BACKEND_URL=https://backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io
