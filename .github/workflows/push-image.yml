@@ -8,63 +8,83 @@ on:
     branches:
       - azure  # Trigger on pull requests to the azure branch
 
+env:
+  CONTAINER_REGISTRY: todoregister.azurecr.io  # Azure Container Registry
+  BACKEND_IMAGE: todoregister.azurecr.io/azure-backend:latest
+  FRONTEND_IMAGE: todoregister.azurecr.io/azure-frontend:latest
+  RESOURCE_GROUP: todo-rg
+  BACKEND_CONTAINER: azure-backend-container
+  FRONTEND_CONTAINER: azure-frontend-container
+
 jobs:
-  # Build and push the backend image
-  backend:
+  build-and-deploy-backend:
     runs-on: ubuntu-latest
     steps:
+      # Check out the code
       - uses: actions/checkout@v4
 
-      # Log in to Azure using user credentials
+      # Log in to Azure using the service principal
       - name: Azure Login
-        run: |
-          echo "${{ secrets.AZURE_PASSWORD }}" | az login -u "${{ secrets.AZURE_USERNAME }}" --password-stdin
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      # Log in to Azure Container Registry
       - name: Log in to Azure Container Registry
-        run: |
-          echo "${{ secrets.AZURE_ACR_PASSWORD }}" | docker login todoregister.azurecr.io -u "${{ secrets.AZURE_ACR_USERNAME }}" --password-stdin
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.CONTAINER_REGISTRY }}
+          username: ${{ secrets.AZURE_ACR_USERNAME }}
+          password: ${{ secrets.AZURE_ACR_PASSWORD }}
 
-      - name: Build and tag the Docker image for backend
-        run: docker build ./backend -t todoregister.azurecr.io/azure-backend:latest
+      # Build and tag the Docker image for the backend
+      - name: Build and tag backend Docker image
+        run: docker build ./backend -t ${{ env.BACKEND_IMAGE }}
 
-      - name: Push the backend image to Azure Container Registry
-        run: docker push todoregister.azurecr.io/azure-backend:latest
+      # Push the backend image to Azure Container Registry
+      - name: Push backend image to ACR
+        run: docker push ${{ env.BACKEND_IMAGE }}
 
+      # Deploy backend container app to Azure
       - name: Deploy backend to Azure Container Apps
         run: |
-          az containerapp update --name azure-backend-container \
-                                 --resource-group todo-rg \
-                                 --image todoregister.azurecr.io/azure-backend:latest \
-                                 --set-env DATABASE_HOST=mysql-container \
-                                 --set-env DATABASE_USER=appuser \
-                                 --set-env DATABASE_PORT=3306 \
-                                 --set-env DATABASE_PASSWORD=apppassword \
-                                 --set-env DATABASE_NAME=app_db
+          az containerapp update --name ${{ env.BACKEND_CONTAINER }} \
+                                 --resource-group ${{ env.RESOURCE_GROUP }} \
+                                 --image ${{ env.BACKEND_IMAGE }} \
+                                 --environment-variables DATABASE_HOST=mysql-container DATABASE_USER=appuser DATABASE_PORT=3306 DATABASE_PASSWORD=apppassword DATABASE_NAME=app_db
 
-  # Build and push the frontend image
-  frontend:
+  build-and-deploy-frontend:
     runs-on: ubuntu-latest
     steps:
+      # Check out the code
       - uses: actions/checkout@v4
 
-      # Log in to Azure using user credentials
+      # Log in to Azure using the service principal
       - name: Azure Login
-        run: |
-          echo "${{ secrets.AZURE_PASSWORD }}" | az login -u "${{ secrets.AZURE_USERNAME }}" --password-stdin
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      # Log in to Azure Container Registry
       - name: Log in to Azure Container Registry
-        run: |
-          echo "${{ secrets.AZURE_ACR_PASSWORD }}" | docker login todoregister.azurecr.io -u "${{ secrets.AZURE_ACR_USERNAME }}" --password-stdin
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.CONTAINER_REGISTRY }}
+          username: ${{ secrets.AZURE_ACR_USERNAME }}
+          password: ${{ secrets.AZURE_ACR_PASSWORD }}
 
-      - name: Build and tag the Docker image for frontend
-        run: docker build ./frontend -t todoregister.azurecr.io/azure-frontend:latest
+      # Build and tag the Docker image for the frontend
+      - name: Build and tag frontend Docker image
+        run: docker build ./frontend -t ${{ env.FRONTEND_IMAGE }}
 
-      - name: Push the frontend image to Azure Container Registry
-        run: docker push todoregister.azurecr.io/azure-frontend:latest
+      # Push the frontend image to Azure Container Registry
+      - name: Push frontend image to ACR
+        run: docker push ${{ env.FRONTEND_IMAGE }}
 
+      # Deploy frontend container app to Azure
       - name: Deploy frontend to Azure Container Apps
         run: |
-          az containerapp update --name azure-frontend-container \
-                                 --resource-group todo-rg \
-                                 --image todoregister.azurecr.io/azure-frontend:latest \
-                                 --set-env REACT_APP_BACKEND_URL=https://backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io
+          az containerapp update --name ${{ env.FRONTEND_CONTAINER }} \
+                                 --resource-group ${{ env.RESOURCE_GROUP }} \
+                                 --image ${{ env.FRONTEND_IMAGE }} \
+                                 --environment-variables REACT_APP_BACKEND_URL=https://frontend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io
