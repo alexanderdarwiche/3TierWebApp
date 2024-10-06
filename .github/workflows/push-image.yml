@@ -93,3 +93,4 @@ jobs:
                                  --resource-group ${{ env.RESOURCE_GROUP }} \
                                  --image ${{ env.FRONTEND_IMAGE }} \
                                  --set environmentVariables.REACT_APP_BACKEND_URL=https://backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io
+#test again
