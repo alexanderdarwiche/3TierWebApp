@@ -46,18 +46,6 @@ jobs:
       - name: Push backend image to ACR
         run: docker push ${{ env.BACKEND_IMAGE }}
 
-      # Create backend container app if it doesn't exist
-      - name: Create backend Container App
-        run: |
-          az containerapp create --name ${{ env.BACKEND_CONTAINER }} \
-                                  --resource-group ${{ env.RESOURCE_GROUP }} \
-                                  --image ${{ env.BACKEND_IMAGE }} \
-                                  --environment ${{ env.AZURE_ENVIRONMENT }} \
-                                  --min-replicas 1 \
-                                  --max-replicas 5 \
-                                  --cpu 0.5 \
-                                  --memory 1.0Gi
-
       # Deploy backend container app to Azure
       - name: Deploy backend to Azure Container Apps
         run: |
@@ -97,18 +85,6 @@ jobs:
       # Push the frontend image to Azure Container Registry
       - name: Push frontend image to ACR
         run: docker push ${{ env.FRONTEND_IMAGE }}
-
-      # Create frontend container app if it doesn't exist
-      - name: Create frontend Container App
-        run: |
-          az containerapp create --name ${{ env.FRONTEND_CONTAINER }} \
-                                  --resource-group ${{ env.RESOURCE_GROUP }} \
-                                  --image ${{ env.FRONTEND_IMAGE }} \
-                                  --environment ${{ env.AZURE_ENVIRONMENT }} \
-                                  --min-replicas 1 \
-                                  --max-replicas 5 \
-                                  --cpu 0.5 \
-                                  --memory 1.0Gi
 
       # Deploy frontend container app to Azure
       - name: Deploy frontend to Azure Container Apps
