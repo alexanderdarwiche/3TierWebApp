@@ -52,11 +52,11 @@ jobs:
           az containerapp update --name ${{ env.BACKEND_CONTAINER }} \
                                  --resource-group ${{ env.RESOURCE_GROUP }} \
                                  --image ${{ env.BACKEND_IMAGE }} \
-                                 --set environmentVariables.DATABASE_HOST=mysql-container \
-                                     environmentVariables.DATABASE_USER=appuser \
-                                     environmentVariables.DATABASE_PORT=3306 \
-                                     environmentVariables.DATABASE_PASSWORD=apppassword \
-                                     environmentVariables.DATABASE_NAME=app_db
+                                 --set DATABASE_HOST=mysql-container \
+                                     DATABASE_USER=appuser \
+                                     DATABASE_PORT=3306 \
+                                     DATABASE_PASSWORD=apppassword \
+                                     DATABASE_NAME=app_db
 
   build-and-deploy-frontend:
     runs-on: ubuntu-latest
@@ -92,5 +92,4 @@ jobs:
           az containerapp update --name ${{ env.FRONTEND_CONTAINER }} \
                                  --resource-group ${{ env.RESOURCE_GROUP }} \
                                  --image ${{ env.FRONTEND_IMAGE }} \
-                                 --set environmentVariables.REACT_APP_BACKEND_URL=https://backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io
-#test again
+                                 --set REACT_APP_BACKEND_URL=https://azure-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io
