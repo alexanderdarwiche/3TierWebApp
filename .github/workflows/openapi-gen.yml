@@ -1,4 +1,4 @@
-name: gen-swagger
+name: openapi-gen
 
 on:
     workflow_run:
