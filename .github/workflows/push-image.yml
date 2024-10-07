@@ -28,7 +28,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Ensure this contains your JSON credentials
+          creds: ${{ secrets.AZURE_CREDENTIALS }}  # JSON credentials, CLIENT_ID, TENANT_ID, SUBSCRIPTION_ID, CLIENT_SECRET_ID
 
       # Log in to Azure Container Registry
       - name: Log in to Azure Container Registry
@@ -68,7 +68,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Ensure this contains your JSON credentials
+          creds: ${{ secrets.AZURE_CREDENTIALS }} # JSON credentials, CLIENT_ID, TENANT_ID, SUBSCRIPTION_ID, CLIENT_SECRET_ID
 
       # Log in to Azure Container Registry
       - name: Log in to Azure Container Registry
