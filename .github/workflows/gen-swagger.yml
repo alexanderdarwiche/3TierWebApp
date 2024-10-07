@@ -1,8 +1,8 @@
-name: Generate OpenAPI
+name: gen-swagger
 
 on:
     workflow_run:
-      workflows: ["CI-CD-images"]
+      workflows: ["ci-cd"]
       types:
         - completed
     workflow_dispatch: # To manully test the workflow in Github CLI
