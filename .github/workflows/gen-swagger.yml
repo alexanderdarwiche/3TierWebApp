@@ -1,11 +1,14 @@
 name: Generate OpenAPI
 
 on:
-  workflow_run:
-    workflows: ["CI-CD-images"]  # Name of the main workflow
-    types:
-      - completed
-
+    workflow_run:
+      workflows: ["CI-CD-images"]
+      types:
+        - completed
+    push:  # Temporary, can be removed after testing
+    pull_request:  # Temporary, can be removed after testing
+    workflow_dispatch: # To manully test the workflow in Github CLI
+  
 jobs:
   generate-openapi:
     runs-on: ubuntu-latest
