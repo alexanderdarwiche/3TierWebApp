@@ -1,20 +1,20 @@
-name: Docker Image CI and Deploy to Azure
+name: CI-CD-images
 
 on:
   push:
     branches:
-      - azure  # Trigger on push to the azure branch
+      - swagger  # Trigger on push to the azure branch
   pull_request:
     branches:
-      - azure  # Trigger on pull requests to the azure branch
+      - swagger  # Trigger on pull requests to the azure branch
 
 env:
   CONTAINER_REGISTRY: todoregister.azurecr.io  # Azure Container Registry
-  BACKEND_IMAGE: todoregister.azurecr.io/azure-backend:latest
-  FRONTEND_IMAGE: todoregister.azurecr.io/azure-frontend:latest
+  BACKEND_IMAGE: todoregister.azurecr.io/swagger-backend:latest
+  FRONTEND_IMAGE: todoregister.azurecr.io/swagger-frontend:latest
   RESOURCE_GROUP: todo-rg
-  BACKEND_CONTAINER: azure-backend-container
-  FRONTEND_CONTAINER: azure-frontend-container
+  BACKEND_CONTAINER: swagger-backend-container
+  FRONTEND_CONTAINER: swagger-frontend-container
   AZURE_ENVIRONMENT: todo-container-env
 
 jobs:
@@ -92,4 +92,4 @@ jobs:
           az containerapp update --name ${{ env.FRONTEND_CONTAINER }} \
                                  --resource-group ${{ env.RESOURCE_GROUP }} \
                                  --image ${{ env.FRONTEND_IMAGE }} \
-                                 --set REACT_APP_BACKEND_URL=https://azure-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io
+                                 --set REACT_APP_BACKEND_URL=https://swagger-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io
