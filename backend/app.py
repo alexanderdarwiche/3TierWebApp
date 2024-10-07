@@ -160,7 +160,7 @@ def test_connection():
             conn.close()
 
 # OpenAPI definition endpoint (This can be removed)
-@app.route('/swagger.json', methods=['GET'])
+@app.route('/apispec_1.json', methods=['GET'])
 def swagger_spec():
     return jsonify(swagger.get_swagger()), 200
 
