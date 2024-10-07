@@ -1,6 +1,10 @@
 name: Generate OpenAPI
 
 on:
+  push:
+    branches:
+      - swagger  # Trigger on push to the swagger branch
+
   workflow_run:
     workflows: ["CI-CD-images"]  # Name of the main workflow
     types:
@@ -15,4 +19,4 @@ jobs:
       # Generate OpenAPI definition
       - name: Generate OpenAPI Definition
         run: |
-          curl https://swagger-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/swagger.json -o openapi.json  # Ensure your app is running and accessible
+          curl -fSL https://swagger-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/swagger.json -o openapi.json  # Ensure your app is running and accessible
