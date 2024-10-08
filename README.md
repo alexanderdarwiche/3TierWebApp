@@ -1,31 +1,42 @@
 # 3TierWebApp
 
+A simple TODO API.
+
 Backend: Python (Flask)
 Frontend: React (Axios)
 Database: (MySQL)
+API doc: Swagger
+Cloud: Azure
 
+## To run the application 
 
-## To run the application (backend)
+Start with pushing the images to your ACR.
 
-Start the backend so the API is working correctly. Make sure there is a connection to your local database.
+- Backend image
+- Frontend image
+- MySQL image
 
-~ cd backend
+After that setup a container app for each image.
+A good idea is to setup the MySQL container first so the backend later can establish a connection to the container.
+Make sure to have the right settings for each container:
 
-~ python3 app.py
+- Backend container: port 5000, external ingress, no env variables when setting it up.
+- Frontend container: port 3000, external ingress, no env variables when setting it up
+- MySQL container: port 3306, external traffic over TCP. Set up relevant env variables. (check docker-compose)
 
-View database items on http://localhost:5000/api/items
+When the MySQL container is set up make sure to access it via command line and log in as the user provided in the env variables.
+Then use the database that you supplied in the env variables and create items table in that database.
+For some reason (still working on that) the app.py dosent create the items table in the initialization of the database.
 
+You can setup the containers with right env variables from the start, however the github workflows will provide them automaitcally when you push & pull requests. 
 
+## Known bugs
 
-## To run the application (frontend)
-
-Start the web interface to interact with the database trough the API
-
-~ cd frontend
-
-~ npm start
-
-View web interface at http://localhost:3000/
+- Bad backendURL can cause react to crash (whitescreen), therefore the backendurl is hardcoded.
+- Not a bug but the app hasnt been tested with a persitent volume. If you shut down the mysql container you loose all the data.
+- Some of the env variables are hardcoded and shouldnt be for example DATABASE_PASSWORD.
+- app.py dosent create the items table even tough its supposed to.
+- The branches are not merged properly. Each branch serve the purpose to try the app in different enviroments. For example, in docker, azure, with hardcoded env variables, with swagger integratoin, and locally.
 
 
 ### To make sure the API is working without having to use Postman, use cUrl for testing the requests easy, for example:

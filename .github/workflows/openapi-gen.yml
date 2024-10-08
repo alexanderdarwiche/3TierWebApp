@@ -1,0 +1,26 @@
+name: openapi-gen
+
+on:
+  workflow_run:
+    workflows: ["ci-cd"]
+    types:
+      - completed
+  workflow_dispatch:  # To manually test the workflow in GitHub CLI
+
+jobs:
+  generate-openapi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        
+      # Generate OpenAPI definition
+      - name: Generate OpenAPI Definition
+        run: |
+          curl -fSL https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json -o openapi.json
+
+      # Upload the OpenAPI definition as an artifact
+      - name: Upload OpenAPI Definition
+        uses: actions/upload-artifact@v3
+        with:
+          name: openapi-definition
+          path: openapi.json
