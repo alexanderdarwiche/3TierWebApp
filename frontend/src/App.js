@@ -12,7 +12,7 @@ function App() {
   /* In a Azure environment, set the REACT_APP_BACKEND_URL environment variable to the appropriate URL of your backend.
   For example, if your backend is hosted at https://mybackend.azurecontainerapps.io, set that as the environment variable in your Azure configuration.*/
   // IF THE BACKENDURL IS NOT CORRECTLY REFERENCED, REACT WILL RETURN A WHITE SCREEN (TYPE E ERROR)
-  const backendUrl = 'https://swagger-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io';
+  const backendUrl = 'https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io';
 
   useEffect(() => {
     fetchItems();

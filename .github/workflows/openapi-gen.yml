@@ -1,14 +1,8 @@
 name: openapi-gen
 
 on:
-  push:
-    branches:
-      - swagger  # Trigger on push to the swagger branch
-  pull_request:
-    branches:
-      - swagger  # Trigger on pull requests to the swagger branch
   workflow_run:
-    workflows: ["ci-cd"]  # THIS IS NOT WORKING. NEED TO BE FIXED, POTENTIAL ERROR COULD BE ITS NOT ALLOWED EXCEPT FOR MAIN BRANCH.
+    workflows: ["ci-cd"]
     types:
       - completed
   workflow_dispatch:  # To manually test the workflow in GitHub CLI
@@ -18,15 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      # Wait for 2 minutes before proceeding
-      - name: Wait for 2 minutes
-        run: sleep 120
         
       # Generate OpenAPI definition
       - name: Generate OpenAPI Definition
         run: |
-          curl -fSL https://swagger-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json -o openapi.json
+          curl -fSL https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json -o openapi.json
 
       # Upload the OpenAPI definition as an artifact
       - name: Upload OpenAPI Definition
