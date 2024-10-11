@@ -32,7 +32,7 @@ jobs:
         id: check_changes
         run: |
           # Check for differences in the OpenAPI JSON file, ignoring whitespace
-          git diff --exit-code --ignore-all-space backend/openapi.json
+          git diff --ignore-all-space backend/openapi.json
           
           # Capture exit code
           exit_code=$?
@@ -44,6 +44,8 @@ jobs:
           else
             echo "Changes detected. Continuing the workflow."
           fi
+
+        continue-on-error: true  # Don't fail the workflow if git diff finds changes
 
       # Commit and push the updated OpenAPI definition if there are changes
       - name: Commit and Push Changes
