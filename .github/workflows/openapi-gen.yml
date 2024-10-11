@@ -29,22 +29,25 @@ jobs:
 
       # Check for changes in the OpenAPI definition
       - name: Check for Changes
+        id: check_changes
         run: |
           # Check for differences in the OpenAPI JSON file, ignoring whitespace
           git diff --exit-code --ignore-all-space backend/openapi.json
           
-          # Check exit code of the last command
-          if [[ $? -ne 0 ]]; then
-            echo "Changes detected."
+          # Capture exit code
+          exit_code=$?
+
+          # If exit code is 0 (no changes), exit the workflow early
+          if [ $exit_code -eq 0 ]; then
+            echo "No changes detected. Exiting."
+            exit 0
           else
-            echo "No changes detected."
-            exit 0  # Exit the job early if no changes
+            echo "Changes detected. Continuing the workflow."
           fi
 
-      # Commit and push the updated OpenAPI definition only if there are changes
+      # Commit and push the updated OpenAPI definition if there are changes
       - name: Commit and Push Changes
         run: |
-          echo "Committing and pushing changes."
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add backend/openapi.json
