@@ -25,7 +25,7 @@ jobs:
           git config --local user.name "GitHub Action"
           
           # Set up the Git remote URL to use the GITHUB_TOKEN for authentication
-          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/alexanderdarwiche/3TierWebApp.git
+          git remote set-url origin https://x-access-token:${{ secrets.MyToken }}@github.com/alexanderdarwiche/3TierWebApp.git
 
           git add backend/openapi.json
           git commit -m "Update OpenAPI definition"
