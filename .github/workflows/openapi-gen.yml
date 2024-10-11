@@ -32,7 +32,7 @@ jobs:
         id: check_changes
         run: |
           # Check for differences in the OpenAPI JSON file, ignoring whitespace
-          git diff --ignore-all-space backend/openapi.json
+          git diff --exit-code --ignore-all-space backend/openapi.json
           
           # Capture exit code
           exit_code=$?
@@ -45,13 +45,15 @@ jobs:
             echo "Changes detected. Continuing the workflow."
           fi
 
-        continue-on-error: true  # Don't fail the workflow if git diff finds changes
-
       # Commit and push the updated OpenAPI definition if there are changes
       - name: Commit and Push Changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Set up the Git remote URL to use the GITHUB_TOKEN for authentication
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/alexanderdarwiche/3TierWebApp.git
+
           git add backend/openapi.json
           git commit -m "Update OpenAPI definition"
-          git push
+          git push origin HEAD:main  # Specify the branch you want to push to
