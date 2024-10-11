@@ -36,7 +36,7 @@ You can setup the containers with right env variables from the start, however th
 - Not a bug but the app hasnt been tested with a persitent volume. If you shut down the mysql container you loose all the data.
 - Some of the env variables are hardcoded and shouldnt be for example DATABASE_PASSWORD.
 - app.py dosent create the items table even tough its supposed to.
-- The branches are not merged properly. Each branch serve the purpose to try the app in different enviroments. For example, in docker, azure, with hardcoded env variables, with swagger integratoin, and locally.
+- The branches are not merged properly. Each branch serve the purpose to try the app in different enviroments. For example, in docker, azure, with hardcoded env variables, with swagger integration, and locally.
 
 
 ### To make sure the API is working without having to use Postman, use cUrl for testing the requests easy, for example:
