@@ -30,8 +30,8 @@ jobs:
       # Check for changes in the OpenAPI definition
       - name: Check for Changes
         run: |
-          # Check for differences in the OpenAPI JSON file
-          git diff --exit-code backend/openapi.json
+          # Check for differences in the OpenAPI JSON file, ignoring whitespace
+          git diff --exit-code --ignore-all-space backend/openapi.json
           
           # Check exit code of the last command
           if [[ $? -ne 0 ]]; then
