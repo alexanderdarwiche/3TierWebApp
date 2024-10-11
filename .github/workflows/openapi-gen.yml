@@ -13,11 +13,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        
+
       # Generate OpenAPI definition
       - name: Generate OpenAPI Definition
         run: |
           curl https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json -o backend/openapi.json
+
+      # Prettify the OpenAPI JSON
+      - name: Prettify OpenAPI JSON
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          jq . backend/openapi.json > backend/openapi_pretty.json
+          mv backend/openapi_pretty.json backend/openapi.json
 
       # Check for changes in the OpenAPI definition
       - name: Check for Changes
