@@ -3,7 +3,7 @@
     "info": {
         "description": "powered by Flasgger",
         "termsOfService": "/tos",
-        "title": "A swagger APITESTWORKFLOWWORKING",
+        "title": "A swagger API NEW TEST",
         "version": "0.0.1"
     },
     "paths": {
@@ -11,7 +11,7 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "A list of items",
+                        "description": "A list of items TEST",
                         "schema": {
                             "items": {
                                 "properties": {
