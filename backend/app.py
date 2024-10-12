@@ -140,7 +140,7 @@ def remove_item(item_id):
     return jsonify({'message': message}), 200
 
 # Test the connection to the database
-@app.route('/testing', methods=['GET'])
+@app.route('/test88', methods=['GET'])
 def test_connection():
     """
     Test the database connection.
