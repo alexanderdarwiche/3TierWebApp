@@ -1,3 +1,0 @@
-# About
-
-powered by Flasgger
