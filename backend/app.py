@@ -34,22 +34,6 @@ def init_db():
 # API to get all items
 @app.route('/api/items', methods=['GET'])
 def get_items():
-    """
-    Get all items.
-    ---
-    responses:
-      200:
-        description: A list of items
-        schema:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-    """
     conn = mysql.connector.connect(**DB_CONFIG)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM items")
@@ -60,22 +44,6 @@ def get_items():
 # API to add a new item
 @app.route('/api/items', methods=['POST'])
 def add_item():
-    """
-    Add a new item.
-    ---
-    parameters:
-      - name: item
-        in: body
-        required: true
-        schema:
-          type: object
-          properties:
-            name:
-              type: string
-    responses:
-      201:
-        description: Item added successfully
-    """
     data = request.get_json()
     name = data['name']
 
@@ -90,22 +58,6 @@ def add_item():
 # API to update an item by ID
 @app.route('/api/items/<int:id>', methods=['PUT'])
 def update_item(id):
-    """
-    Update an item by ID.
-    ---
-    parameters:
-      - name: item
-        in: body
-        required: true
-        schema:
-          type: object
-          properties:
-            name:
-              type: string
-    responses:
-      200:
-        description: Item updated successfully
-    """
     data = request.get_json()
     name = data['name']
     
@@ -120,13 +72,6 @@ def update_item(id):
 # API to remove an item
 @app.route('/api/items/<int:item_id>', methods=['DELETE'])
 def remove_item(item_id):
-    """
-    Remove an item by ID.
-    ---
-    responses:
-      200:
-        description: Item removed successfully or not found
-    """
     conn = mysql.connector.connect(**DB_CONFIG)
     cursor = conn.cursor()
     cursor.execute("DELETE FROM items WHERE id = %s", (item_id,))
@@ -142,13 +87,6 @@ def remove_item(item_id):
 # Test the connection to the database
 @app.route('/test1010101', methods=['GET'])
 def test_connection():
-    """
-    Test the database connection.
-    ---
-    responses:
-      200:
-        description: Database connection successful
-    """
     try:
         conn = mysql.connector.connect(**DB_CONFIG)
         if conn.is_connected():
