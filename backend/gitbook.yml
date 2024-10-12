@@ -5,7 +5,7 @@ root: ./backend  # Adjust this if your structure is different
 
 # Define the structure of your GitBook
 structure:
-  summary:
-    - README.md
-    - API Documentation:
-        - openapi.json  # This should reference your OpenAPI JSON file directly
+  readme: README.md
+  summary: SUMMARY.md
+  pages:
+    - openapi.json  # Include your OpenAPI JSON file here
