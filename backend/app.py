@@ -85,7 +85,7 @@ def remove_item(item_id):
     return jsonify({'message': message}), 200
 
 # Test the connection to the database
-@app.route('/test1010101', methods=['GET'])
+@app.route('/testupdated', methods=['GET'])
 def test_connection():
     try:
         conn = mysql.connector.connect(**DB_CONFIG)
