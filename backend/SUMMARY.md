@@ -1,4 +1,7 @@
-# Summary
+# Table of contents
 
 * [Introduction](README.md)
-* [API Documentation](openapi.json)  # Keeps direct access to the API documentation
+* [API reference](api-reference/README.md)
+  * [Test](api-reference/test.md)
+  * [Api](api-reference/api/README.md)
+    * [Items](api-reference/api/items.md)
