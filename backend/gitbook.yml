@@ -1,13 +1,4 @@
-title: My API Documentation
-description: A detailed overview of my API.
-author: Your Name
-root: ./backend  # Adjust this if your structure is different
-
-# Define the structure of your GitBook
+root: ./backend
 structure:
   readme: README.md
   summary: SUMMARY.md
-  pages:
-    - openapi: 
-        title: API Documentation
-        file: openapi.json  # Link to your OpenAPI JSON file here
