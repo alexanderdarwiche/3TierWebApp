@@ -5,7 +5,7 @@ on:
     workflows: ["ci-cd"]
     types:
       - completed
-  workflow_dispatch:  # To manually test the workflow in GitHub CLI
+  workflow_dispatch:  # To manually trigger the workflow in GitHub CLI
 
 jobs:
   generate-openapi:
@@ -14,19 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Generate OpenAPI definition
+      # Generate OpenAPI definition and save to a temporary location
       - name: Generate OpenAPI Definition
         run: |
-          curl https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json -o backend/openapi.json
+          curl https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json -o /tmp/openapi.json
 
-      - name: Commit and Push Changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          
-          # Set up the Git remote URL to use the GH_TOKEN for authentication
-          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/alexanderdarwiche/3TierWebApp.git
-
-          git add backend/openapi.json
-          git commit -m "Update OpenAPI definition"
-          git push origin main
+      # Upload the OpenAPI JSON as a GitHub artifact
+      - name: Upload OpenAPI Definition
+        uses: actions/upload-artifact@v3
+        with:
+          name: openapi-definition
+          path: /tmp/openapi.json
