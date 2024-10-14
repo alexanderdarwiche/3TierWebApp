@@ -25,7 +25,3 @@ jobs:
         with:
           name: openapi-definition
           path: /tmp/openapi.json
-      
-      - name: Generate Markdown documentation
-        run: |
-          python docs/generate_docs.py
