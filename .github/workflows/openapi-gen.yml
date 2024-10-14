@@ -15,16 +15,9 @@ jobs:
       - uses: actions/checkout@v4
 
       # Generate OpenAPI definition and save to a temporary location
-      - name: Generate OpenAPI Definition
-        run: |
-          curl https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json -o /tmp/openapi.json
-
-      # Upload the OpenAPI JSON as a GitHub artifact
-      - name: Upload OpenAPI Definition
-        uses: actions/upload-artifact@v3
-        with:
-          name: openapi-definition
-          path: /tmp/openapi.json
+      #- name: Generate OpenAPI Definition
+      #run: |
+      #curl https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json -o /tmp/openapi.json
       
       - name: Generate Markdown documentation
         run: |
