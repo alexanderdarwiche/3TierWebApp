@@ -16,7 +16,18 @@ jobs:
 
       # Fetch the OpenAPI definition from your backend and save it to docs/openapi.json
 
-
       - name: Generate Markdown documentation
         run: |
           python docs/generate_docs.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add docs/apidocs.md
+          git commit -m "Update API documentation"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+          
