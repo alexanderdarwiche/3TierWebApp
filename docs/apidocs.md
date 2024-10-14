@@ -16,6 +16,6 @@
 [openapi.json](./openapi.json)
 {% endswagger %}
 
-{% swagger src="./openapi.json" expanded="true" %}
+{% swagger src="./openapi.json" path="/testwasupdated" method="get" expanded="true" %}
 [openapi.json](./openapi.json)
 {% endswagger %}
