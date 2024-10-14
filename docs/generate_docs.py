@@ -12,16 +12,19 @@ def generate_swagger_blocks(openapi_file):
     
     for path, methods in paths.items():
         for method in methods.keys():
-            swagger_block = f"""{{
-% swagger src="./{openapi_file}" path="{path}" method="{method}" expanded="true" %}}
+            # Escape curly braces by doubling them
+            swagger_block = f"""{{% swagger src="./{openapi_file}" path="{path}" method="{method}" expanded="true" %}}
 [openapi.json](./{openapi_file})
-{% endswagger %}"""
+{{% endswagger %}}"""
             swagger_blocks.append(swagger_block)
     
     return swagger_blocks
 
 def save_swagger_blocks(swagger_blocks, output_file):
+    title = "# API Documentation\n\n"
+    
     with open(output_file, 'w') as file:
+        file.write(title)
         file.write("\n\n".join(swagger_blocks))
 
 if __name__ == "__main__":
