@@ -47,3 +47,10 @@ curl -X DELETE http://localhost:5000/api/items/1
 }
 
 
+# CICD GITBOOKS
+
+1. After a new build, the OpenAPI json gets downloaded from the live resource (via curl)
+2. The new openAPI file is saved in docs folder with updated content
+3. After the build workflow is complete and the openapi json is generated the openapi-gen workflow starts
+4. The workflow generate swagger blocks based on the openapi file and gets saved in the apidocs.md
+5. Gitbook sync the repo after a push and fetch the data from apidocs.md and display the updated json in gitbooks.

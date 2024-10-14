@@ -11,7 +11,7 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "A list of items. This was updated manually",
+                        "description": "A list of items.",
                         "schema": {
                             "items": {
                                 "properties": {
@@ -89,7 +89,7 @@
                 "summary": "Remove an item by ID."
             }
         },
-        "/testwasupdated": {
+        "/testcicdisworking": {
             "get": {
                 "responses": {
                     "200": {
