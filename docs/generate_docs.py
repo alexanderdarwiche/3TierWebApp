@@ -22,14 +22,14 @@ def generate_swagger_blocks(openapi_file):
 
 def save_swagger_blocks(swagger_blocks, output_file):
     title = "# API Documentation\n\n"
-    
+
     with open(output_file, 'w') as file:
         file.write(title)
         file.write("\n\n".join(swagger_blocks))
 
 if __name__ == "__main__":
-    openapi_file = 'openapi.json'  # Path to your OpenAPI file
-    output_file = 'apidocs.md'  # Output markdown file
+    openapi_file = 'docs/openapi.json'  # Adjusted path to your OpenAPI file
+    output_file = 'docs/apidocs.md'     # Adjusted output markdown file
     
     swagger_blocks = generate_swagger_blocks(openapi_file)
     save_swagger_blocks(swagger_blocks, output_file)
