@@ -33,6 +33,6 @@ def generate_markdown(json_file, output_file):
         f.write(markdown_content)
 
 if __name__ == "__main__":
-    json_file = './openapi.json'  # Path to your OpenAPI JSON file
-    output_file = './apidocs.md'  # Output Markdown file
+    json_file = 'openapi.json'  # Path to your OpenAPI JSON file
+    output_file = 'apidocs.md'  # Output Markdown file
     generate_markdown(json_file, output_file)
