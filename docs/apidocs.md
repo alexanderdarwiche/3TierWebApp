@@ -1,7 +1,7 @@
 # API Documentation
 
-{% swagger src="openapi.json" path="/api/items" method="get" expanded="true" %}
-[openapi.json](openapi.json)
+{% swagger src="./docs/openapi.json" path="/api/items" method="get" expanded="true" %}
+[openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 {% swagger src="./docs/openapi.json" path="/api/items" method="post" expanded="true" %}
