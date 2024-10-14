@@ -14,11 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Generate OpenAPI definition and save to a temporary location
-      #- name: Generate OpenAPI Definition
-      #run: |
-      #curl https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json -o /tmp/openapi.json
-      
+      # Fetch the OpenAPI definition from your backend and save it to docs/openapi.json
+      - name: Generate OpenAPI Definition
+        run: |
+          curl https://your-api-endpoint.com/apispec_1.json -o docs/openapi.json
+
       - name: Generate Markdown documentation
         run: |
           python docs/generate_docs.py
