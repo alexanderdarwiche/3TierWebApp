@@ -1,21 +1,21 @@
 # API Documentation
 
-{% swagger src="./docs/openapi.json" path="/api/items" method="get" expanded="true" %}
+{% swagger src="./openapi.json" path="/api/items" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-{% swagger src="./docs/openapi.json" path="/api/items" method="post" expanded="true" %}
+{% swagger src="./openapi.json" path="/api/items" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-{% swagger src="./docs/openapi.json" path="/api/items/{id}" method="put" expanded="true" %}
+{% swagger src="./openapi.json" path="/api/items/{id}" method="put" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-{% swagger src="./docs/openapi.json" path="/api/items/{item_id}" method="delete" expanded="true" %}
+{% swagger src="./openapi.json" path="/api/items/{item_id}" method="delete" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-{% swagger src="./docs/openapi.json" path="/testcicdwrking" method="get" expanded="true" %}
+{% swagger src="./openapi.json" path="/testbox" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
