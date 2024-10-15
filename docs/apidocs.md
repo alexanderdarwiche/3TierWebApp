@@ -16,6 +16,6 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-{% swagger src="./docs/openapi.json" path="/testcicdworking" method="get" expanded="true" %}
+{% swagger src="./docs/openapi.json" path="/testcicdwrking" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}

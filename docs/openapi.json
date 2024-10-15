@@ -89,7 +89,7 @@
                 "summary": "Remove an item by ID."
             }
         },
-        "/testcicdworking": {
+        "/testbox": {
             "get": {
                 "responses": {
                     "200": {
