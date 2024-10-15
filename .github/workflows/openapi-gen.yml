@@ -40,7 +40,8 @@ jobs:
       # Generate Markdown documentation
       - name: Generate Markdown documentation
         run: |
-          python docs/generate_docs.py
+          cd docs
+          python generate_docs.py
 
       # Commit and push the generated documentation
       - name: Commit and push API documentation
