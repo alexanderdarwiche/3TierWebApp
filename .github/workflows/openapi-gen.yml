@@ -18,6 +18,11 @@ jobs:
       - name: Fetch OpenAPI definition
         run: |
           curl -o docs/openapi.json https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json
+          
+      # List files in the docs directory to ensure openapi.json is there
+      - name: Verify openapi.json file
+        run: |
+          ls -l docs/
 
       # Commit and push the openapi.json to the repo
       - name: Commit and push openapi.json
