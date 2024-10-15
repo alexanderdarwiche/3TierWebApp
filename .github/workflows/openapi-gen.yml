@@ -27,8 +27,7 @@ jobs:
       # Generate Markdown documentation
       - name: Generate Markdown documentation
         run: |
-          cd docs
-          python generate_docs.py
+          python docs/generate_docs.py
 
       # Commit and push openapi.json and apidocs.md to the repo
       - name: Commit and push changes
