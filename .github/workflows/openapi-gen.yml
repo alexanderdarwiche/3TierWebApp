@@ -18,7 +18,7 @@ jobs:
       - name: Fetch OpenAPI definition
         run: |
           curl -o docs/openapi.json https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json
-          
+
       # List files in the docs directory to ensure openapi.json is there
       - name: Verify openapi.json file
         run: |
@@ -45,7 +45,8 @@ jobs:
       # Generate Markdown documentation
       - name: Generate Markdown documentation
         run: |
-          python docs/generate_docs.py
+          cd docs
+          python generate_docs.py
 
       # Commit and push the generated Markdown
       - name: Commit and push apidocs.md
