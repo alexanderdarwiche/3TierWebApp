@@ -18,14 +18,14 @@ jobs:
       - name: Fetch OpenAPI definition
         run: |
           curl -o docs/openapi.json https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json
-          
-      # Commit and push changes
-      - name: Commit and push changes
+    
+      # Commit the fetched OpenAPI definition
+      - name: Commit and push openapi.json
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add docs/apidocs.md docs/openapi.json
-          git commit -m "Update API documentation"
+          git add docs/openapi.json
+          git commit -m "Fetched openapi.json"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -42,12 +42,12 @@ jobs:
         run: |
           python docs/generate_docs.py
 
-      # Commit and push changes
-      - name: Commit and push changes
+      # Commit and push the generated documentation
+      - name: Commit and push API documentation
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add docs/apidocs.md docs/openapi.json
+          git add docs/apidocs.md
           git commit -m "Update API documentation"
           git push
         env:
