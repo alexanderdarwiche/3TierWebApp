@@ -1,4 +1,5 @@
 import json
+import os
 from collections import defaultdict
 
 def generate_swagger_blocks(openapi_file):
@@ -20,31 +21,50 @@ def generate_swagger_blocks(openapi_file):
         for method in methods.keys():
             categorized_paths[category].append((path, method))
 
-    swagger_blocks = []
+    return categorized_paths
+
+def save_swagger_docs(categorized_paths, output_dir):
+    # Ensure output directory exists
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    sidebar_content = ["# Table of Contents\n", "* [API Documentation](README.md)"]
     
-    # Generate the Markdown documentation structure with categories
+    # Generate markdown files for each category and method
     for category, endpoints in categorized_paths.items():
-        swagger_blocks.append(f"## {category}\n")
+        category_dir = os.path.join(output_dir, category)
+        if not os.path.exists(category_dir):
+            os.makedirs(category_dir)
+
+        sidebar_content.append(f"* [{category}]({category}/README.md)")
+        
+        category_readme = [f"# {category} API\n"]
+
         for endpoint, method in endpoints:
-            swagger_block = f"""{{% swagger src="./openapi.json" path="{endpoint}" method="{method}" expanded="true" %}}
-[openapi.json](./{openapi_file})
+            filename = endpoint.strip('/').split('/')[-1] + '.md'
+            method_file = os.path.join(category_dir, filename)
+            
+            swagger_block = f"""{{% swagger src="../openapi.json" path="{endpoint}" method="{method}" expanded="true" %}}
 {{% endswagger %}}"""
-            swagger_blocks.append(swagger_block)
-
-    return swagger_blocks
-
-def save_swagger_blocks(swagger_blocks, output_file):
-    title = "# API Documentation\n\n"
-
-    with open(output_file, 'w') as file:
-        file.write(title)
-        file.write("\n\n".join(swagger_blocks))
+            
+            with open(method_file, 'w') as file:
+                file.write(f"# {method.upper()} {endpoint}\n")
+                file.write(swagger_block)
+            
+            category_readme.append(f"* [{method.upper()} {endpoint}]({filename})")
+        
+        with open(os.path.join(category_dir, 'README.md'), 'w') as file:
+            file.write("\n".join(category_readme))
+    
+    # Write sidebar or summary for GitBook
+    with open(os.path.join(output_dir, '_sidebar.md'), 'w') as file:
+        file.write("\n".join(sidebar_content))
 
 if __name__ == "__main__":
-    openapi_file = 'docs/openapi.json'  # Adjusted path to your OpenAPI file
-    output_file = 'docs/apidocs.md'     # Adjusted output markdown file
+    openapi_file = 'docs/openapi.json'  # Path to your OpenAPI file
+    output_dir = 'docs'                # Directory to save markdown files
     
-    swagger_blocks = generate_swagger_blocks(openapi_file)
-    save_swagger_blocks(swagger_blocks, output_file)
+    categorized_paths = generate_swagger_blocks(openapi_file)
+    save_swagger_docs(categorized_paths, output_dir)
     
-    print(f"Swagger blocks saved to {output_file}")
+    print(f"Documentation generated in {output_dir}")
