@@ -1,4 +1,5 @@
 import json
+from collections import defaultdict
 
 def generate_swagger_blocks(openapi_file):
     # Load the OpenAPI JSON file
@@ -7,17 +8,40 @@ def generate_swagger_blocks(openapi_file):
     
     # Extract paths and methods
     paths = data.get('paths', {})
+
+    # Organize paths under their "categories"
+    categorized_paths = defaultdict(lambda: defaultdict(list))
+
+    for path, methods in paths.items():
+        # Assuming first part of path is the category (e.g., /accounts/invoices -> Accounts)
+        parts = path.strip('/').split('/')
+        if len(parts) > 1:
+            category = parts[0].capitalize()  # First part as category (capitalize for uniformity)
+            subcategory = parts[1].capitalize()  # Second part as subcategory
+        else:
+            category = parts[0].capitalize()
+            subcategory = None
+
+        # Add methods under category/subcategory
+        for method in methods.keys():
+            if subcategory:
+                categorized_paths[category][subcategory].append((path, method))
+            else:
+                categorized_paths[category]['General'].append((path, method))
     
     swagger_blocks = []
     
-    for path, methods in paths.items():
-        for method in methods.keys():
-            # Escape curly braces by doubling them
-            swagger_block = f"""{{% swagger src="./openapi.json" path="{path}" method="{method}" expanded="true" %}}
+    # Generate the Markdown documentation structure
+    for category, subcategories in categorized_paths.items():
+        swagger_blocks.append(f"## {category}\n")
+        for subcategory, endpoints in subcategories.items():
+            swagger_blocks.append(f"### {subcategory}\n")
+            for endpoint, method in endpoints:
+                swagger_block = f"""{{% swagger src="./openapi.json" path="{endpoint}" method="{method}" expanded="true" %}}
 [openapi.json](./{openapi_file})
 {{% endswagger %}}"""
-            swagger_blocks.append(swagger_block)
-    
+                swagger_blocks.append(swagger_block)
+
     return swagger_blocks
 
 def save_swagger_blocks(swagger_blocks, output_file):
