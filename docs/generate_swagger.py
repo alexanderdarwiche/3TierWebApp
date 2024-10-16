@@ -33,7 +33,7 @@ def generate_swagger_blocks(openapi_file):
         for path, methods in paths.items():
             for method in methods.keys():
                 # Escape curly braces by doubling them and generate swagger block
-                swagger_block = f"""{{% swagger src="./openapi.json" path="{path}" method="{method}" expanded="true" %}}
+                swagger_block = f"""{{% swagger src="./{openapi_file}" path="{path}" method="{method}" expanded="true" %}}
 [openapi.json](./{openapi_file})
 {{% endswagger %}}"""
                 swagger_blocks.append(swagger_block)
