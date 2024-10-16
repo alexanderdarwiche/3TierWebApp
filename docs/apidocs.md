@@ -3,14 +3,35 @@
 ## Accounts
 
 
-### {id}
-
-
 {% swagger src="./openapi.json" path="/Accounts/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 {% swagger src="./openapi.json" path="/Accounts/{id}" method="patch" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Accounts" method="post" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Accounts" method="get" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Accounts/OnlinePaymentDetails/{id}" method="post" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Accounts/OnlinePaymentDetails/{id}" method="patch" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Accounts/OnlinePaymentDetails/{id}" method="delete" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Accounts/{accountId}" method="delete" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
@@ -26,51 +47,12 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### General
-
-
-{% swagger src="./openapi.json" path="/Accounts" method="post" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-{% swagger src="./openapi.json" path="/Accounts" method="get" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-### Onlinepaymentdetails
-
-
-{% swagger src="./openapi.json" path="/Accounts/OnlinePaymentDetails/{id}" method="post" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-{% swagger src="./openapi.json" path="/Accounts/OnlinePaymentDetails/{id}" method="patch" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-{% swagger src="./openapi.json" path="/Accounts/OnlinePaymentDetails/{id}" method="delete" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-### {accountid}
-
-
-{% swagger src="./openapi.json" path="/Accounts/{accountId}" method="delete" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
 ## Bookings
-
-
-### General
 
 
 {% swagger src="./openapi.json" path="/Bookings" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/Bookings/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -79,15 +61,9 @@
 ## Chartofaccounts
 
 
-### General
-
-
 {% swagger src="./openapi.json" path="/ChartOfAccounts" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/ChartOfAccounts/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -96,24 +72,15 @@
 ## Countries
 
 
-### General
-
-
 {% swagger src="./openapi.json" path="/Countries" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/Countries/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 ## Currency
-
-
-### General
 
 
 {% swagger src="./openapi.json" path="/Currency" method="get" expanded="true" %}
@@ -123,9 +90,6 @@
 {% swagger src="./openapi.json" path="/Currency" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/Currency/{id}" method="delete" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -138,24 +102,15 @@
 ## Documenttemplate
 
 
-### General
-
-
 {% swagger src="./openapi.json" path="/DocumentTemplate" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/DocumentTemplate/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 ## Exchangerate
-
-
-### General
 
 
 {% swagger src="./openapi.json" path="/ExchangeRate" method="post" expanded="true" %}
@@ -166,9 +121,6 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### {id}
-
-
 {% swagger src="./openapi.json" path="/ExchangeRate/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
@@ -176,15 +128,9 @@
 ## Invoices
 
 
-### General
-
-
 {% swagger src="./openapi.json" path="/Invoices" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/Invoices/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -194,7 +140,31 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
+{% swagger src="./openapi.json" path="/Invoices/invoiceDownloadAttachment/{invoiceId}" method="get" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Invoices/generateAttachmentURL/{invoiceId}" method="get" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
 {% swagger src="./openapi.json" path="/Invoices/{id}/Attachments" method="get" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Invoices/PostedInvoiceDocumentAttachments" method="get" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Invoices/DownloadAttachment/{id}" method="get" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Invoices/paid" method="post" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Invoices/onAccountInvoice" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
@@ -210,6 +180,10 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
+{% swagger src="./openapi.json" path="/Invoices/orders/{id}" method="post" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
 {% swagger src="./openapi.json" path="/Invoices/{id}/ProcessStripePayment" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
@@ -218,59 +192,7 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### Invoicedownloadattachment
-
-
-{% swagger src="./openapi.json" path="/Invoices/invoiceDownloadAttachment/{invoiceId}" method="get" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-### Generateattachmenturl
-
-
-{% swagger src="./openapi.json" path="/Invoices/generateAttachmentURL/{invoiceId}" method="get" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-### Postedinvoicedocumentattachments
-
-
-{% swagger src="./openapi.json" path="/Invoices/PostedInvoiceDocumentAttachments" method="get" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-### Downloadattachment
-
-
-{% swagger src="./openapi.json" path="/Invoices/DownloadAttachment/{id}" method="get" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-### Paid
-
-
-{% swagger src="./openapi.json" path="/Invoices/paid" method="post" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-### Onaccountinvoice
-
-
-{% swagger src="./openapi.json" path="/Invoices/onAccountInvoice" method="post" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-### Orders
-
-
-{% swagger src="./openapi.json" path="/Invoices/orders/{id}" method="post" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
 ## Journals
-
-
-### {id}
 
 
 {% swagger src="./openapi.json" path="/Journals/{id}" method="patch" expanded="true" %}
@@ -281,17 +203,11 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### General
-
-
 {% swagger src="./openapi.json" path="/Journals" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 ## Measurements
-
-
-### General
 
 
 {% swagger src="./openapi.json" path="/Measurements" method="post" expanded="true" %}
@@ -302,15 +218,9 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### Import
-
-
 {% swagger src="./openapi.json" path="/Measurements/import" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/Measurements/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -319,15 +229,9 @@
 ## Orders
 
 
-### {id}
-
-
 {% swagger src="./openapi.json" path="/Orders/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### Charges
-
 
 {% swagger src="./openapi.json" path="/Orders/Charges/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -340,9 +244,6 @@
 ## Paymentterms
 
 
-### General
-
-
 {% swagger src="./openapi.json" path="/PaymentTerms" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
@@ -351,17 +252,11 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### {id}
-
-
 {% swagger src="./openapi.json" path="/PaymentTerms/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 ## Products
-
-
-### General
 
 
 {% swagger src="./openapi.json" path="/Products" method="get" expanded="true" %}
@@ -371,9 +266,6 @@
 {% swagger src="./openapi.json" path="/Products" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/Products/{id}" method="patch" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -387,15 +279,9 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### Chargeplans
-
-
 {% swagger src="./openapi.json" path="/Products/chargePlans/{id}" method="delete" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### Charges
-
 
 {% swagger src="./openapi.json" path="/Products/charges/{id}" method="delete" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -404,31 +290,19 @@
 ## Quotes
 
 
-### Converttoorder
-
-
 {% swagger src="./openapi.json" path="/Quotes/convertToOrder" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### General
-
-
 {% swagger src="./openapi.json" path="/Quotes" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/Quotes/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 ## Salesorders
-
-
-### General
 
 
 {% swagger src="./openapi.json" path="/SalesOrders" method="get" expanded="true" %}
@@ -439,9 +313,6 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### {id}
-
-
 {% swagger src="./openapi.json" path="/SalesOrders/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
@@ -449,9 +320,6 @@
 {% swagger src="./openapi.json" path="/SalesOrders/{id}/version" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {ordernumber}
-
 
 {% swagger src="./openapi.json" path="/SalesOrders/{orderNumber}/versions" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -461,9 +329,6 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### Activate
-
-
 {% swagger src="./openapi.json" path="/SalesOrders/activate/{id}" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
@@ -471,24 +336,15 @@
 ## Simpleproducts
 
 
-### General
-
-
 {% swagger src="./openapi.json" path="/SimpleProducts" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/SimpleProducts/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 ## Subscriptions
-
-
-### {id}
 
 
 {% swagger src="./openapi.json" path="/Subscriptions/{id}" method="get" expanded="true" %}
@@ -503,35 +359,17 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-{% swagger src="./openapi.json" path="/Subscriptions/{id}/version" method="get" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-{% swagger src="./openapi.json" path="/Subscriptions/{id}/change" method="post" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-{% swagger src="./openapi.json" path="/Subscriptions/{id}/milestones" method="get" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-{% swagger src="./openapi.json" path="/Subscriptions/{id}/OrderDiscounts" method="post" expanded="true" %}
-[openapi.json](./docs/openapi.json)
-{% endswagger %}
-
-### {ordernumber}
-
-
 {% swagger src="./openapi.json" path="/Subscriptions/{orderNumber}/versions" method="get" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Subscriptions/{id}/version" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 {% swagger src="./openapi.json" path="/Subscriptions/{orderNumber}/versions/{version}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### General
-
 
 {% swagger src="./openapi.json" path="/Subscriptions" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -541,53 +379,44 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### Cancel
-
+{% swagger src="./openapi.json" path="/Subscriptions/{id}/change" method="post" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
 
 {% swagger src="./openapi.json" path="/Subscriptions/cancel/{id}" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### Renew
-
-
 {% swagger src="./openapi.json" path="/Subscriptions/renew/{id}" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### Revert
-
 
 {% swagger src="./openapi.json" path="/Subscriptions/revert/{id}" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### Activate
-
-
 {% swagger src="./openapi.json" path="/Subscriptions/activate/{id}" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### Milestones
-
+{% swagger src="./openapi.json" path="/Subscriptions/{id}/milestones" method="get" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
 
 {% swagger src="./openapi.json" path="/Subscriptions/milestones/set/{id}" method="post" expanded="true" %}
+[openapi.json](./docs/openapi.json)
+{% endswagger %}
+
+{% swagger src="./openapi.json" path="/Subscriptions/{id}/OrderDiscounts" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 ## Taxtemplates
 
 
-### General
-
-
 {% swagger src="./openapi.json" path="/TaxTemplates" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/TaxTemplates/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -596,24 +425,15 @@
 ## Unitofmeasurements
 
 
-### General
-
-
 {% swagger src="./openapi.json" path="/UnitOfMeasurements" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/UnitOfMeasurements/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 ## Usage
-
-
-### General
 
 
 {% swagger src="./openapi.json" path="/Usage" method="post" expanded="true" %}
@@ -623,9 +443,6 @@
 {% swagger src="./openapi.json" path="/Usage" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/Usage/{id}" method="patch" expanded="true" %}
 [openapi.json](./docs/openapi.json)
@@ -639,17 +456,11 @@
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
-### Import
-
-
 {% swagger src="./openapi.json" path="/Usage/import" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
 
 ## Webhooks
-
-
-### General
 
 
 {% swagger src="./openapi.json" path="/Webhooks" method="get" expanded="true" %}
@@ -659,9 +470,6 @@
 {% swagger src="./openapi.json" path="/Webhooks" method="post" expanded="true" %}
 [openapi.json](./docs/openapi.json)
 {% endswagger %}
-
-### {id}
-
 
 {% swagger src="./openapi.json" path="/Webhooks/{id}" method="get" expanded="true" %}
 [openapi.json](./docs/openapi.json)
