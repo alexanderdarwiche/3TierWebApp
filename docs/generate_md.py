@@ -3,8 +3,9 @@ import re
 
 # Set up paths
 input_file = 'docs/swaggerblocks.md'  # Your input file with Swagger blocks
-output_dir = 'docs/md_references'      # Directory to save the grouped files
-summary_file = os.path.join(output_dir, 'SUMMARY.md')  # Path for SUMMARY.md
+output_dir = 'docs'      # Directory to save the grouped files
+summary_file = os.path.join('docs', 'SUMMARY.md')  # Path for SUMMARY.
+
 
 # Ensure output directory exists
 if not os.path.exists(output_dir):
