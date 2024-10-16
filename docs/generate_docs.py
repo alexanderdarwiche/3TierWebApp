@@ -2,8 +2,8 @@ import os
 import re
 
 # Set up paths
-input_file = 'api_documentation.md'  # Your input file with Swagger blocks
-output_dir = 'grouped_docs'          # Directory to save the grouped files
+input_file = 'swaggerblocks.md'  # Your input file with Swagger blocks
+output_dir = 'docs'          # Directory to save the grouped files
 
 # Ensure output directory exists
 if not os.path.exists(output_dir):
