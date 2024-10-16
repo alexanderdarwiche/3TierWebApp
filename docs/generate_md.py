@@ -3,8 +3,8 @@ import re
 
 # Set up paths
 input_file = 'docs/swaggerblocks.md'  # Your input file with Swagger blocks
-output_dir = 'docs/md_references'          # Directory to save the grouped files
-summary_file = os.path.join(output_dir, 'SUMMARY.md')  # File for the summary links in the same directory
+output_dir = 'docs/md_references'      # Directory to save the grouped files
+summary_file = os.path.join(output_dir, 'SUMMARY.md')  # Path for SUMMARY.md
 
 # Ensure output directory exists
 if not os.path.exists(output_dir):
@@ -22,6 +22,7 @@ sections = re.split(group_pattern, content)
 
 # Initialize an empty dictionary to hold the group names and corresponding content
 grouped_content = {}
+summary_entries = []
 
 # Iterate over sections to separate group headers and their content
 for i in range(1, len(sections), 2):
@@ -33,9 +34,7 @@ for i in range(1, len(sections), 2):
         grouped_content[group_name] = ""
     grouped_content[group_name] += group_content
 
-# Write each group into a separate file and prepare summary links
-summary_links = []
-
+# Write each group into a separate file and build SUMMARY.md
 for group, content in grouped_content.items():
     group_file = os.path.join(output_dir, f'{group}.md')
     with open(group_file, 'w') as file:
@@ -43,19 +42,26 @@ for group, content in grouped_content.items():
         file.write(f'## {group}\n\n')
         file.write(content)
 
-    print(f'Created file: {group_file}')
+    # Add the group to SUMMARY.md
+    summary_entries.append(f'- [{group}]({group}.md)')
     
-    # Add link to the summary
-    summary_links.append(f'- [{group}](./{group}.md)')
+    # Add nested entries for sub-paths
+    for line in content.splitlines():
+        match = re.match(r'^\s*-\s*\[(.*?)\]\s*\((.*?)\)', line)
+        if match:
+            sub_path_name = match.group(1)
+            sub_path_file = f'{group}.md'
+            summary_entries.append(f'  - [{sub_path_name}]({sub_path_file})')
 
-# Write the SUMMARY.md file in the md_references folder
+    print(f'Created file: {group_file}')
+
+# Write SUMMARY.md with nested structure
 with open(summary_file, 'w') as summary:
     summary.write('# Summary\n\n')
-    summary.write('\n'.join(summary_links))
+    summary.write('\n'.join(summary_entries))
 
-print(f'Created SUMMARY.md: {summary_file}')
+print(f'Created SUMMARY.md at {summary_file}')
 
-# Remove the input file after processing
-if os.path.exists(input_file):
-    os.remove(input_file)
-    print(f'Removed input file: {input_file}')
+# Remove the swaggerblocks.md file after processing
+os.remove(input_file)
+print(f'Removed {input_file}')
