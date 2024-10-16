@@ -1,60 +1,43 @@
-import json
 import os
+import re
 
-def categorize_paths(paths):
-    categories = {}
-    
-    # Categorize paths based on the first segment of the path (e.g., '/accounts/', '/orders/')
-    for path, methods in paths.items():
-        category = path.split('/')[1]  # Assuming category is always the first segment in the path
-        if category not in categories:
-            categories[category] = {}
-        categories[category][path] = methods
-    
-    return categories
+# Set up paths
+input_file = 'api_documentation.md'  # Your input file with Swagger blocks
+output_dir = 'grouped_docs'          # Directory to save the grouped files
 
-def generate_swagger_blocks(openapi_file):
-    # Load the OpenAPI JSON file
-    with open(openapi_file, 'r') as file:
-        data = json.load(file)
-    
-    # Extract paths and methods
-    paths = data.get('paths', {})
-    
-    # Categorize paths
-    categorized_paths = categorize_paths(paths)
-    
-    swagger_blocks = []
-    
-    for category, paths in categorized_paths.items():
-        # Category title
-        swagger_blocks.append(f"## {category.capitalize()}\n")
-        
-        for path, methods in paths.items():
-            for method in methods.keys():
-                # Escape curly braces by doubling them and generate swagger block
-                swagger_block = f"""{{% swagger src="./openapi.json" path="{path}" method="{method}" expanded="true" %}}
-[openapi.json](./{openapi_file})
-{{% endswagger %}}"""
-                swagger_blocks.append(swagger_block)
-        
-        # Add a separator between categories
-        swagger_blocks.append("\n---\n")
-    
-    return swagger_blocks
+# Ensure output directory exists
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
 
-def save_swagger_blocks(swagger_blocks, output_file):
-    title = "# API Documentation\n\n"
-    
-    with open(output_file, 'w') as file:
-        file.write(title)
-        file.write("\n\n".join(swagger_blocks))
+# Open the input file and read the contents
+with open(input_file, 'r') as file:
+    content = file.read()
 
-if __name__ == "__main__":
-    openapi_file = 'docs/openapi.json'  # Adjusted path to your OpenAPI file
-    output_file = 'docs/apidocs.md'     # Adjusted output markdown file
-    
-    swagger_blocks = generate_swagger_blocks(openapi_file)
-    save_swagger_blocks(swagger_blocks, output_file)
-    
-    print(f"Swagger blocks saved to {output_file}")
+# Regular expression to match the group headings (e.g., ## Accounts)
+group_pattern = re.compile(r'##\s([A-Za-z]+)')
+
+# Split content into sections based on the groups
+sections = re.split(group_pattern, content)
+
+# Initialize an empty dictionary to hold the group names and corresponding content
+grouped_content = {}
+
+# Iterate over sections to separate group headers and their content
+for i in range(1, len(sections), 2):
+    group_name = sections[i].strip()  # The group name (e.g., Accounts)
+    group_content = sections[i + 1]   # The corresponding Swagger blocks
+
+    # Save the content in the dictionary
+    if group_name not in grouped_content:
+        grouped_content[group_name] = ""
+    grouped_content[group_name] += group_content
+
+# Write each group into a separate file
+for group, content in grouped_content.items():
+    group_file = os.path.join(output_dir, f'{group}.md')
+    with open(group_file, 'w') as file:
+        # Write the group header and content
+        file.write(f'## {group}\n\n')
+        file.write(content)
+
+    print(f'Created file: {group_file}')

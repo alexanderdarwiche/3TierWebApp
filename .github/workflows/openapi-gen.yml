@@ -24,7 +24,12 @@ jobs:
         run: |
           ls -l docs/
 
-      # Generate Markdown documentation
+      # Generate swagger blocks based on OpenAPI file 
+      - name: Generate all Swagger blocks
+        run: |
+          python docs/generate_swagger.py
+
+      # Generate markdown structure and docs based on swagger blocks
       - name: Generate Markdown documentation
         run: |
           python docs/generate_docs.py
