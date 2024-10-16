@@ -2,8 +2,9 @@ import os
 import re
 
 # Set up paths
-input_file = 'swaggerblocks.md'  # Your input file with Swagger blocks
-output_dir = 'docs'          # Directory to save the grouped files
+input_file = 'docs/swaggerblocks.md'  # Your input file with Swagger blocks
+output_dir = 'docs/md_references'          # Directory to save the grouped files
+summary_file = os.path.join(output_dir, 'SUMMARY.md')  # File for the summary links in the same directory
 
 # Ensure output directory exists
 if not os.path.exists(output_dir):
@@ -32,7 +33,9 @@ for i in range(1, len(sections), 2):
         grouped_content[group_name] = ""
     grouped_content[group_name] += group_content
 
-# Write each group into a separate file
+# Write each group into a separate file and prepare summary links
+summary_links = []
+
 for group, content in grouped_content.items():
     group_file = os.path.join(output_dir, f'{group}.md')
     with open(group_file, 'w') as file:
@@ -41,3 +44,18 @@ for group, content in grouped_content.items():
         file.write(content)
 
     print(f'Created file: {group_file}')
+    
+    # Add link to the summary
+    summary_links.append(f'- [{group}](./{group}.md)')
+
+# Write the SUMMARY.md file in the md_references folder
+with open(summary_file, 'w') as summary:
+    summary.write('# Summary\n\n')
+    summary.write('\n'.join(summary_links))
+
+print(f'Created SUMMARY.md: {summary_file}')
+
+# Remove the input file after processing
+if os.path.exists(input_file):
+    os.remove(input_file)
+    print(f'Removed input file: {input_file}')

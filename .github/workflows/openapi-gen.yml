@@ -29,10 +29,10 @@ jobs:
         run: |
           python docs/generate_swagger.py
 
-      # Generate markdown structure and docs based on swagger blocks
-      - name: Generate Markdown documentation
+      # Generate all swagger blocks in seperate markdowns
+      - name: Generate seperate markdowns
         run: |
-          python docs/generate_docs.py
+          python docs/generate_md.py
 
       # Commit and push openapi.json and apidocs.md to the repo
       - name: Commit and push changes
