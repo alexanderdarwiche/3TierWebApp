@@ -17,7 +17,7 @@ jobs:
       # Fetch the OpenAPI definition from the backend and save it to docs/openapi.json
       - name: Fetch OpenAPI definition
         run: |
-          curl -o docs/openapi.json https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json
+          curl -o docs/openapi.json https://api.younium.com/swagger/v2/swagger.json
 
       # List files in the docs directory to ensure openapi.json is there
       - name: Verify openapi.json file
