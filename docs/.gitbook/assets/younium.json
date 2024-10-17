@@ -17901,6 +17901,10 @@
           },
           "isEUTax": {
             "type": "boolean"
+          },
+          "externalCode": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
