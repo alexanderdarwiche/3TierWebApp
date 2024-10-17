@@ -15,3 +15,9 @@ __pycache__/
 
 # Ignore environment variables file
 .env
+
+# Ignore the entire .gitbook directory
+.gitbook/
+
+# Makes sure that the openapi-gen workflow pushes the new generated json file
+!.gitbook/assets/*.json
