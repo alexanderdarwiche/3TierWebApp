@@ -15,14 +15,14 @@ jobs:
       - uses: actions/checkout@v4
 
       # Fetch the OpenAPI definition from the backend and save it to docs/openapi.json
-      - name: Fetch OpenAPI definition
-        run: |
-          curl -o docs/openapi.json https://api.younium.com/swagger/v2/swagger.json
+      # - name: Fetch OpenAPI definition
+      #  run: |
+      #    curl -o docs/openapi.json https://api.younium.com/swagger/v2/swagger.json
 
       # List files in the docs directory to ensure openapi.json is there
-      - name: Verify openapi.json file
-        run: |
-          ls -l docs/
+      #- name: Verify openapi.json file
+      #  run: |
+      #    ls -l docs/
 
       # Commit and push openapi.json and apidocs.md to the repo
       - name: Commit and push changes
