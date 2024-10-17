@@ -1,47 +1,10 @@
-# Accounts
+---
+description: descriptoion here
+icon: face-grin-stars
+---
 
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts/{id}" method="get" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
+# Welcome
 
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts/{id}" method="patch" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
+just testing to see if it works
 
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts" method="post" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
-
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts" method="get" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
-
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts/OnlinePaymentDetails/{id}" method="post" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
-
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts/OnlinePaymentDetails/{id}" method="patch" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
-
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts/OnlinePaymentDetails/{id}" method="delete" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
-
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts/{accountId}" method="delete" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
-
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts/{id}/Subscriptions" method="get" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
-
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts/{id}/Invoices" method="get" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
-
-{% swagger src=".gitbook/assets/openapi.json" path="/Accounts/{id}/SalesOrders" method="get" expanded="true" %}
-[openapi.json](.gitbook/assets/openapi.json)
-{% endswagger %}
-
-***
+<table data-view="cards"><thead><tr><th></th><th></th><th></th></tr></thead><tbody><tr><td></td><td>jjj</td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table>

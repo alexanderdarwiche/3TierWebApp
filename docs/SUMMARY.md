@@ -1,6 +1,8 @@
 # Table of contents
 
-* [Accounts](README.md)
+* [Welcome](README.md)
+* [Get started](get-started.md)
+* [Accounts](<README (1).md>)
 * [Bookings](bookings.md)
 * [Chartofaccounts](chartofaccounts.md)
 * [Countries](countries.md)
