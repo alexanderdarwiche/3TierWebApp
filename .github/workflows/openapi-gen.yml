@@ -24,16 +24,6 @@ jobs:
         run: |
           ls -l docs/
 
-      # Generate swagger blocks based on OpenAPI file 
-      - name: Generate all Swagger blocks
-        run: |
-          python docs/generate_swagger.py
-
-      # Generate all swagger blocks in seperate markdowns
-      - name: Generate seperate markdowns
-        run: |
-          python docs/generate_md.py
-
       # Commit and push openapi.json and apidocs.md to the repo
       - name: Commit and push changes
         run: |
