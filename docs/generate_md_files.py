@@ -89,12 +89,20 @@ summary_parts = summary_content.split(api_s_marker)
 summary_before_api = summary_parts[0] if len(summary_parts) > 0 else ''
 summary_after_api = summary_parts[1] if len(summary_parts) > 1 else ''
 
-# Rebuild SUMMARY.md with the updated API 2.0 section, after the API:s marker
+# Rebuild the SUMMARY.md with proper nesting for API 2.0 under API:s
 with open(summary_file, 'w') as summary:
-    summary.write(summary_before_api)                     # Write content before [API:s]
-    summary.write(f'{api_s_marker}\n\n')                  # Re-insert the [API:s] marker
-    summary.write('\n'.join(api_summary_entries))         # Write the updated API 2.0 section
-    summary.write(summary_after_api)                      # Append the remaining content
+    # Write content before [API:s]
+    summary.write(summary_before_api)
+    
+    # Re-insert the [API:s] marker
+    summary.write(f'{api_s_marker}\n\n')
+    
+    # Properly indent and nest API 2.0 section under API:s
+    summary.write('  * [API 2.0](api-s/api-2.0/README.md)\n')  # Nested under API:s with two spaces for indentation
+    summary.write('\n'.join([f'    {entry}' for entry in api_summary_entries[1:]]))  # Indent all other entries under API 2.0 by 4 spaces
+    
+    # Append remaining content after [API:s]
+    summary.write(summary_after_api)
 
 print(f'Updated SUMMARY.md at {summary_file}')
 
