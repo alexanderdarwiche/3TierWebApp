@@ -1,6 +1,7 @@
 import json
 import os
 
+# Function to categorize paths based on the first segment
 def categorize_paths(paths):
     categories = {}
     
@@ -13,7 +14,8 @@ def categorize_paths(paths):
     
     return categories
 
-def generate_swagger_blocks(openapi_file):
+# Function to generate Swagger blocks for the OpenAPI JSON file
+def generate_swagger_blocks(openapi_file, asset_file_name):
     # Load the OpenAPI JSON file
     with open(openapi_file, 'r') as file:
         data = json.load(file)
@@ -33,7 +35,7 @@ def generate_swagger_blocks(openapi_file):
         for path, methods in paths.items():
             for method in methods.keys():
                 # Escape curly braces by doubling them and generate swagger block
-                swagger_block = f"""{{% swagger src="../../.gitbook/assets/younium.json" path="{path}" method="{method}" expanded="true" %}}
+                swagger_block = f"""{{% swagger src="../../.gitbook/assets/{asset_file_name}" path="{path}" method="{method}" expanded="true" %}}
 [openapi.json](./{openapi_file})
 {{% endswagger %}}"""
                 swagger_blocks.append(swagger_block)
@@ -43,6 +45,7 @@ def generate_swagger_blocks(openapi_file):
     
     return swagger_blocks
 
+# Function to save Swagger blocks to a markdown file
 def save_swagger_blocks(swagger_blocks, output_file):
     title = "# API Documentation\n\n"
     
@@ -51,10 +54,20 @@ def save_swagger_blocks(swagger_blocks, output_file):
         file.write("\n\n".join(swagger_blocks))
 
 if __name__ == "__main__":
-    openapi_file = 'docs/.gitbook/assets/younium.json'  # Adjusted path to your OpenAPI file
-    output_file = 'docs/swaggerblocks.md'     # Adjusted output markdown file
+    # File paths for the OpenAPI files
+    openapi_file_1 = 'docs/.gitbook/assets/younium.json'  # Adjusted path for Younium v1
+    openapi_file_2 = 'docs/.gitbook/assets/youniumv2.json'  # Adjusted path for Younium v2
     
-    swagger_blocks = generate_swagger_blocks(openapi_file)
-    save_swagger_blocks(swagger_blocks, output_file)
+    # Output markdown files
+    output_file_1 = 'docs/swaggerblocks_younium.md'  # Output for Younium v1
+    output_file_2 = 'docs/swaggerblocks_youniumv2.md'  # Output for Younium v2
     
-    print(f"Swagger blocks saved to {output_file}")
+    # Generate Swagger blocks for both files
+    swagger_blocks_younium = generate_swagger_blocks(openapi_file_1, 'younium.json')
+    swagger_blocks_youniumv2 = generate_swagger_blocks(openapi_file_2, 'youniumv2.json')
+    
+    # Save each set of Swagger blocks to its respective file
+    save_swagger_blocks(swagger_blocks_younium, output_file_1)
+    save_swagger_blocks(swagger_blocks_youniumv2, output_file_2)
+    
+    print(f"Swagger blocks saved to {output_file_1} and {output_file_2}")
