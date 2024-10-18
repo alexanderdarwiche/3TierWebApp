@@ -1,9 +1,17 @@
-# Countries
+## Countries
 
-{% swagger src="../../.gitbook/assets/younium.json" path="/Countries" method="get" %}
-[younium.json](../../.gitbook/assets/younium.json)
+
+
+
+{% swagger src="../../.gitbook/assets/younium.json" path="/Countries" method="get" expanded="true" %}
+[openapi.json](./docs/.gitbook/assets/younium.json)
 {% endswagger %}
 
-{% swagger src="../../.gitbook/assets/younium.json" path="/Countries/{id}" method="get" %}
-[younium.json](../../.gitbook/assets/younium.json)
+{% swagger src="../../.gitbook/assets/younium.json" path="/Countries/{id}" method="get" expanded="true" %}
+[openapi.json](./docs/.gitbook/assets/younium.json)
 {% endswagger %}
+
+
+---
+
+

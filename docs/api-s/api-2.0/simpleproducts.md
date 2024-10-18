@@ -1,9 +1,17 @@
-# SimpleProducts
+## Simpleproducts
 
-{% swagger src="../../.gitbook/assets/younium.json" path="/SimpleProducts" method="get" %}
-[younium.json](../../.gitbook/assets/younium.json)
+
+
+
+{% swagger src="../../.gitbook/assets/younium.json" path="/SimpleProducts" method="get" expanded="true" %}
+[openapi.json](./docs/.gitbook/assets/younium.json)
 {% endswagger %}
 
-{% swagger src="../../.gitbook/assets/younium.json" path="/SimpleProducts/{id}" method="get" %}
-[younium.json](../../.gitbook/assets/younium.json)
+{% swagger src="../../.gitbook/assets/younium.json" path="/SimpleProducts/{id}" method="get" expanded="true" %}
+[openapi.json](./docs/.gitbook/assets/younium.json)
 {% endswagger %}
+
+
+---
+
+

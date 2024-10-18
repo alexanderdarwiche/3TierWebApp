@@ -19,12 +19,23 @@ jobs:
         run: |
           curl -o docs/.gitbook/assets/younium.json https://api.younium.com/swagger/v2/swagger.json
           curl -o docs/.gitbook/assets/youniumv2.json https://api.younium.com/swagger/v2.1/swagger.json
+      
+       # Generate swagger blocks based on OpenAPI file 
+      - name: Generate all Swagger blocks
+        run: |
+          python docs/generate_swagger.py
+
+      # Generate documentation files
+      - name: Generate seperate markdowns
+        run: |
+          python docs/generate_md_files.py
 
       - name: Commit and push changes
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add -f docs/.gitbook/assets/*.json  # Force-add .json files even if ignored
+          git add docs/*.md  # Add all generated markdown files
           git commit -m "Update openapi.json and API documentation"
           git push
         env:
