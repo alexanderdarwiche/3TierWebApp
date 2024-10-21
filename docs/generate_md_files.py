@@ -26,21 +26,6 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
     # Write the README.md for the API version
     readme_file = os.path.join(output_dir, 'README.md')
     with open(readme_file, 'w') as readme:
-        # Add the layout section at the beginning of the file
-        readme.write('---\n')
-        readme.write(f"layout:\n")
-        readme.write(f"  title:\n")
-        readme.write(f"    visible: true\n")
-        readme.write(f"  description:\n")
-        readme.write(f"    visible: true\n")
-        readme.write(f"  tableOfContents:\n")
-        readme.write(f"    visible: true\n")
-        readme.write(f"  outline:\n")
-        readme.write(f"    visible: true\n")
-        readme.write(f"  pagination:\n")
-        readme.write(f"    visible: false\n")
-        readme.write('---\n\n')
-
         # Add the description and API version title
         readme.write(f"description: 'Younium API - Version: {api_version}'\n")
         readme.write(f"# API {api_version}\n")
@@ -101,6 +86,16 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
     summary_before_api = summary_parts[0] if len(summary_parts) > 0 else ''
     summary_after_api = summary_parts[1] if len(summary_parts) > 1 else ''
 
+    # Split the part after API:s marker to ensure other sections are not affected
+    lines_after_api = summary_after_api.splitlines()
+    remaining_summary = []
+    # Filter out any lines that might incorrectly indent top-level entries
+    for line in lines_after_api:
+        if line.strip().startswith('*') and not line.strip().startswith('* [API'):
+            remaining_summary.append(line)  # Keep top-level sections such as Documentation
+        else:
+            remaining_summary.append(f'  {line}')  # Maintain indentation for nested items
+
     # Rebuild the SUMMARY.md with proper nesting for the API version under API:s
     with open(summary_file, 'w') as summary:
         # Write content before [API:s]
@@ -113,8 +108,9 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
         summary.write(f'  * [API {api_version}](api-s/api-{api_version}/README.md)\n')  # Nested under API:s with two spaces for indentation
         summary.write('\n'.join([f'    {entry}' for entry in api_summary_entries[1:]]))  # Indent all other entries under the API version by 4 spaces
         
-        # Append remaining content after [API:s]
-        summary.write(summary_after_api)
+        # Append the filtered content (after API:s) while keeping non-API items at the same level
+        summary.write('\n'.join(remaining_summary))
+        summary.write('\n')
 
     print(f'Updated SUMMARY.md at {summary_file}')
 
@@ -123,6 +119,7 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
     print(f'Removed {input_file}')
 
 if __name__ == "__main__":
+
     # Paths to Swagger block files and API version
     swaggerblocks_file_1 = 'docs/swaggerblocks_younium.md'  # For Younium v1
     swaggerblocks_file_2 = 'docs/swaggerblocks_youniumv2.md'  # For Younium v2
