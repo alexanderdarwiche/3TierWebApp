@@ -16,7 +16,10 @@ def generate_summary_from_scratch(summary_file, api_versions_info):
     # For each API version, create the API section entries
     for api_version, api_summary_entries in api_versions_info.items():
         api_entries.append(f'  * [API {api_version}](api-s/api-{api_version}/README.md)')
-        api_entries.extend([f'    - [{entry}](api-s/api-{api_version}/{entry.lower()}.md)' for entry in api_summary_entries[1:]])
+        
+        # Sort entries alphabetically and then extend the api_entries list
+        sorted_entries = sorted(api_summary_entries[1:])  # Exclude the README.md entry from sorting
+        api_entries.extend([f'    - [{entry}](api-s/api-{api_version}/{entry.lower()}.md)' for entry in sorted_entries])
 
     # Join API entries into a single string
     api_entries_str = '\n'.join(api_entries)
