@@ -1,4 +1,5 @@
 ---
+icon: none
 layout:
   title:
     visible: true
