@@ -1,3 +1,6 @@
+import os
+import re  # If you're using regular expressions, ensure this is also imported.
+
 def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
     api_section_marker = f'[API {api_version}]'  # Marker for API section
 
