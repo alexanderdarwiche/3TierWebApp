@@ -117,19 +117,17 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
         summary.write(summary_after_api)
 
     print(f'Updated SUMMARY.md at {summary_file}')
-
+    
+    # Check for the Documentation Section and ensure it’s written correctly outside the API section
+    if "Documentation" not in summary_before_api and "Documentation" not in summary_after_api:
+        summary.write('\n* [Documentation](documentation/README.md)\n')
+        summary.write('  * [Developer resources](documentation/developer-resources.md)\n')
+        summary.write('  * [Invoice operations](documentation/invoice-operations.md)\n')
+        summary.write('  * [Product guide](documentation/product-guide.md)\n')
+        summary.write('  * [Webhooks](documentation/webhooks.md)\n')
+        
+    print(f"Ensured Documentation section is placed correctly.")
+    
     # Remove the swaggerblocks.md file after processing
     os.remove(input_file)
     print(f'Removed {input_file}')
-
-if __name__ == "__main__":
-    # Paths to Swagger block files and API version
-    swaggerblocks_file_1 = 'docs/swaggerblocks_younium.md'  # For Younium v1
-    swaggerblocks_file_2 = 'docs/swaggerblocks_youniumv2.md'  # For Younium v2
-    output_dir_1 = 'docs/api-s/api-2.0'  # Output directory for Younium v1 API
-    output_dir_2 = 'docs/api-s/api-2.1'  # Output directory for Younium v2 API
-    summary_file = os.path.join('docs', 'SUMMARY.md')  # Path for SUMMARY.md
-
-    # Process both API versions
-    process_swaggerblocks(swaggerblocks_file_1, output_dir_1, '2.0', summary_file)
-    process_swaggerblocks(swaggerblocks_file_2, output_dir_2, '2.1', summary_file)
