@@ -25,10 +25,15 @@ jobs:
         run: |
           python docs/generate_swagger.py
 
-      # Generate documentation files
+      # Generate .md files
       - name: Generate seperate markdowns
         run: |
           python docs/generate_md_files.py
+
+      # Generate SUMMARY.md
+      - name: Generate seperate markdowns
+        run: |
+          python docs/generate_summary.py
 
       - name: Commit and push changes
         run: |
