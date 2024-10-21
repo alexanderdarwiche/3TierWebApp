@@ -20,29 +20,6 @@ def generate_md_files(input_file, output_dir, api_version):
     # Initialize an empty dictionary to hold the group names and corresponding content
     grouped_content = {}
 
-    # Write the README.md for the API version
-    readme_file = os.path.join(output_dir, 'README.md')
-    with open(readme_file, 'w') as readme:
-        # Add the layout section at the beginning of the file
-        readme.write('---\n')
-        readme.write(f"layout:\n")
-        readme.write(f"  title:\n")
-        readme.write(f"    visible: true\n")
-        readme.write(f"  description:\n")
-        readme.write(f"    visible: true\n")
-        readme.write(f"  tableOfContents:\n")
-        readme.write(f"    visible: true\n")
-        readme.write(f"  outline:\n")
-        readme.write(f"    visible: true\n")
-        readme.write(f"  pagination:\n")
-        readme.write(f"    visible: false\n")
-        readme.write('---\n\n')
-
-        # Add the description and API version title
-        readme.write(f"description: 'Younium API - Version: {api_version}'\n")
-        readme.write(f"# API {api_version}\n")
-    print(f'Created README.md for API version {api_version}')
-
     # Iterate over sections to separate group headers and their content
     for i in range(1, len(sections), 2):
         group_name = sections[i].strip()  # The group name (e.g., Accounts)

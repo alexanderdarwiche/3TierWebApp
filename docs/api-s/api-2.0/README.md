@@ -1,4 +1,5 @@
 ---
+icon: book-open
 layout:
   title:
     visible: true
@@ -11,6 +12,3 @@ layout:
   pagination:
     visible: false
 ---
-
-description: 'Younium API - Version: 2.0'
-# API 2.0
