@@ -20,17 +20,14 @@ jobs:
           curl -o docs/.gitbook/assets/younium.json https://api.younium.com/swagger/v2/swagger.json
           curl -o docs/.gitbook/assets/youniumv2.json https://api.younium.com/swagger/v2.1/swagger.json
       
-       # Generate swagger blocks based on OpenAPI file 
       - name: Generate all Swagger blocks
         run: |
           python docs/generate_swagger.py
 
-      # Generate .md files
       - name: Generate seperate markdowns
         run: |
           python docs/generate_md_files.py
 
-      # Generate SUMMARY.md
       - name: Generate seperate markdowns
         run: |
           python docs/generate_summary.py
