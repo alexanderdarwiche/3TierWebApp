@@ -7,7 +7,7 @@
     - [Accounts](api-s/api-2.0/accounts.md)
     - [Bookings](api-s/api-2.0/bookings.md)
     - [Chartofaccounts](api-s/api-2.0/chartofaccounts.md)
-    - [Couuuuuuuuuntries](api-s/api-2.0/countries.md)
+    - [Countries](api-s/api-2.0/countries.md)
     - [Currency](api-s/api-2.0/currency.md)
     - [Documenttemplate](api-s/api-2.0/documenttemplate.md)
     - [Exchangerate](api-s/api-2.0/exchangerate.md)
