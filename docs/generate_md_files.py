@@ -44,6 +44,22 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
         # Add the description and API version title
         readme.write(f"description: 'Younium API - Version: {api_version}'\n")
         readme.write(f"# API {api_version}\n")
+        readme.write("Here are the articles in this section:\n\n")
+
+        # Start the table structure for API sections
+        readme.write("|  |  |  |\n")  # Create three columns
+        readme.write("| --- | --- | --- |\n")  # Divider for columns
+
+        # Prepare the group names dynamically from the grouped content
+        group_names = list(grouped_content.keys())
+
+        # Generate the table rows dynamically for the API sections
+        for i in range(0, len(group_names), 3):
+            row_sections = group_names[i:i+3]  # Take sections in groups of 3
+            row_links = [f"[{section}](./{section.lower()}.md)" for section in row_sections]  # Create links
+            row_output = ' | '.join(row_links)  # Join them with markdown table syntax
+            readme.write(f"| {row_output} |\n")  # Write the row
+
     print(f'Created README.md for API version {api_version}')
 
     # Add README.md to the API section in SUMMARY.md
@@ -122,6 +138,7 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
     os.remove(input_file)
     print(f'Removed {input_file}')
 
+# Example usage
 if __name__ == "__main__":
     # Paths to Swagger block files and API version
     swaggerblocks_file_1 = 'docs/swaggerblocks_younium.md'  # For Younium v1
