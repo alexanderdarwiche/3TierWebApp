@@ -4,7 +4,6 @@
 * [Get started](get-started.md)
 * [API:s](api-s/README.md)
 
- 
 * [Documentation](documentation/README.md)
   * [Developer resources](documentation/developer-resources.md)
   * [Invoice operations](documentation/invoice-operations.md)
