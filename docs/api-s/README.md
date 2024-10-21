@@ -1,3 +1,15 @@
-# API:s
+---
+icon: book-open
+layout:
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+---
 
-# Our API:S
