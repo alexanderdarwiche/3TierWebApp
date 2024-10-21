@@ -1,6 +1,7 @@
 import os
-import re  # If you're using regular expressions, ensure this is also imported.
+import re
 
+# Function to process each swaggerblocks file
 def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
     api_section_marker = f'[API {api_version}]'  # Marker for API section
 
@@ -20,18 +21,9 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
 
     # Initialize an empty dictionary to hold the group names and corresponding content
     grouped_content = {}
+    api_summary_entries = []
 
-    # Iterate over sections to separate group headers and their content
-    for i in range(1, len(sections), 2):
-        group_name = sections[i].strip()  # The group name (e.g., Accounts)
-        group_content = sections[i + 1]   # The corresponding Swagger blocks
-
-        # Save the content in the dictionary
-        if group_name not in grouped_content:
-            grouped_content[group_name] = ""
-        grouped_content[group_name] += group_content
-
-    # Write the README.md for the API version (this will include the table of sections/endpoints)
+    # Write the README.md for the API version
     readme_file = os.path.join(output_dir, 'README.md')
     with open(readme_file, 'w') as readme:
         # Add the layout section at the beginning of the file
@@ -52,23 +44,41 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
         # Add the description and API version title
         readme.write(f"description: 'Younium API - Version: {api_version}'\n")
         readme.write(f"# API {api_version}\n")
-        readme.write("Here are the endpoints in this section:\n\n")
-
-        # Start the table structure for API sections
-        readme.write("|  |  |  |\n")  # Create three columns
-        readme.write("| --- | --- | --- |\n")  # Divider for columns
-
-        # Prepare the group names dynamically from the grouped content
-        group_names = list(grouped_content.keys())
-
-        # Generate the table rows dynamically for the API sections
-        for i in range(0, len(group_names), 3):
-            row_sections = group_names[i:i+3]  # Take sections in groups of 3
-            row_links = [f"[{section}](./{section.lower()}.md)" for section in row_sections]  # Create links
-            row_output = ' | '.join(row_links)  # Join them with markdown table syntax
-            readme.write(f"| {row_output} |\n")  # Write the row
-
     print(f'Created README.md for API version {api_version}')
+
+    # Add README.md to the API section in SUMMARY.md
+    api_summary_entries.append(f'* [API {api_version}](api-s/api-{api_version}/README.md)')
+
+    # Iterate over sections to separate group headers and their content
+    for i in range(1, len(sections), 2):
+        group_name = sections[i].strip()  # The group name (e.g., Accounts)
+        group_content = sections[i + 1]   # The corresponding Swagger blocks
+
+        # Save the content in the dictionary
+        if group_name not in grouped_content:
+            grouped_content[group_name] = ""
+        grouped_content[group_name] += group_content
+
+    # Write each group into a separate file and build the API part of the SUMMARY.md
+    for group, content in grouped_content.items():
+        group_file = os.path.join(output_dir, f'{group.lower()}.md')  # Convert group names to lowercase for file paths
+        with open(group_file, 'w') as file:
+            # Write the group header and content
+            file.write(f'## {group}\n\n')
+            file.write(content)
+
+        # Add the group to the API section in SUMMARY.md with the correct relative path (no "docs/" prefix)
+        api_summary_entries.append(f'  - [{group}](api-s/api-{api_version}/{group.lower()}.md)')
+        
+        # Add nested entries for sub-paths
+        for line in content.splitlines():
+            match = re.match(r'^\s*-\s*\[(.*?)\]\s*\((.*?)\)', line)
+            if match:
+                sub_path_name = match.group(1)
+                sub_path_file = f'api-s/api-{api_version}/{group.lower()}.md'
+                api_summary_entries.append(f'    - [{sub_path_name}]({sub_path_file})')
+
+        print(f'Created file: {group_file}')
 
     # Read the existing SUMMARY.md file
     if os.path.exists(summary_file):
@@ -101,7 +111,8 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
         
         # Properly indent and nest the API version section under API:s
         summary.write(f'  * [API {api_version}](api-s/api-{api_version}/README.md)\n')  # Nested under API:s with two spaces for indentation
-
+        summary.write('\n'.join([f'    {entry}' for entry in api_summary_entries[1:]]))  # Indent all other entries under the API version by 4 spaces
+        
         # Append remaining content after [API:s]
         summary.write(summary_after_api)
 
@@ -111,7 +122,6 @@ def process_swaggerblocks(input_file, output_dir, api_version, summary_file):
     os.remove(input_file)
     print(f'Removed {input_file}')
 
-# Example usage
 if __name__ == "__main__":
     # Paths to Swagger block files and API version
     swaggerblocks_file_1 = 'docs/swaggerblocks_younium.md'  # For Younium v1
