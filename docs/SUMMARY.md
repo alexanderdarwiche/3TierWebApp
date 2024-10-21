@@ -5,7 +5,7 @@
 * [API:s](api-s/README.md)
   * [API 2.0](api-s/api-2.0/README.md)
     - [Accounts](api-s/api-2.0/accounts.md)
-    - [Boooooookings](api-s/api-2.0/bookings.md)
+    - [Bookings](api-s/api-2.0/bookings.md)
     - [Chartofaccounts](api-s/api-2.0/chartofaccounts.md)
     - [Countries](api-s/api-2.0/countries.md)
     - [Currency](api-s/api-2.0/currency.md)
