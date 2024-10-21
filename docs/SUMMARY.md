@@ -55,8 +55,8 @@
       - [Unitofmeasurements](api-s/api-2.0/unitofmeasurements.md)
       - [Usage](api-s/api-2.0/usage.md)
       - [Webhooks](api-s/api-2.0/webhooks.md)
- 
-* [Documentation](documentation/README.md)
+
+  * [Documentation](documentation/README.md)
   * [Developer resources](documentation/developer-resources.md)
   * [Invoice operations](documentation/invoice-operations.md)
   * [Product guide](documentation/product-guide.md)
