@@ -6,7 +6,7 @@
 
   * [API 2.1](api-s/api-2.1/README.md)
       - [Accounts](api-s/api-2.1/accounts.md)
-      - [Booooooookings](api-s/api-2.1/bookings.md)
+      - [Bookings](api-s/api-2.1/bookings.md)
       - [Chartofaccounts](api-s/api-2.1/chartofaccounts.md)
       - [Countries](api-s/api-2.1/countries.md)
       - [Currency](api-s/api-2.1/currency.md)
@@ -38,7 +38,7 @@
       - [Bookings](api-s/api-2.0/bookings.md)
       - [Chartofaccounts](api-s/api-2.0/chartofaccounts.md)
       - [Countries](api-s/api-2.0/countries.md)
-      - [Cuuuuurrency](api-s/api-2.0/currency.md)
+      - [Currency](api-s/api-2.0/currency.md)
       - [Documenttemplate](api-s/api-2.0/documenttemplate.md)
       - [Exchangerate](api-s/api-2.0/exchangerate.md)
       - [Invoices](api-s/api-2.0/invoices.md)
@@ -56,7 +56,7 @@
       - [Usage](api-s/api-2.0/usage.md)
       - [Webhooks](api-s/api-2.0/webhooks.md)
 
-* [Documentation](documentation/README.md)
+  * [Documentation](documentation/README.md)
   * [Developer resources](documentation/developer-resources.md)
   * [Invoice operations](documentation/invoice-operations.md)
   * [Product guide](documentation/product-guide.md)
