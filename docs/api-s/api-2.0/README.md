@@ -14,7 +14,14 @@ layout:
 
 description: 'Younium API - Version: 2.0'
 # API 2.0
-Here are the articles in this section:
+Here are the endpoints in this section:
 
 |  |  |  |
 | --- | --- | --- |
+| [Accounts](./accounts.md) | [Bookings](./bookings.md) | [Chartofaccounts](./chartofaccounts.md) |
+| [Countries](./countries.md) | [Currency](./currency.md) | [Documenttemplate](./documenttemplate.md) |
+| [Exchangerate](./exchangerate.md) | [Invoices](./invoices.md) | [Journals](./journals.md) |
+| [Measurements](./measurements.md) | [Orders](./orders.md) | [Paymentterms](./paymentterms.md) |
+| [Products](./products.md) | [Quotes](./quotes.md) | [Salesorders](./salesorders.md) |
+| [Simpleproducts](./simpleproducts.md) | [Subscriptions](./subscriptions.md) | [Taxtemplates](./taxtemplates.md) |
+| [Unitofmeasurements](./unitofmeasurements.md) | [Usage](./usage.md) | [Webhooks](./webhooks.md) |
