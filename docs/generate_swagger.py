@@ -65,8 +65,8 @@ if __name__ == "__main__":
         output_file_2 = 'docs/swaggerblocks_youniumv2.md'
     else:
         # Sandbox environment paths
-        openapi_file_1 = 'docs-sandbox/.gitbook/assets/younium.json'
-        openapi_file_2 = 'docs-sandbox/.gitbook/assets/youniumv2.json'
+        openapi_file_1 = 'docs-sandbox/.gitbook/assets/younium-sandbox.json'
+        openapi_file_2 = 'docs-sandbox/.gitbook/assets/youniumv2-sandbox.json'
         output_file_1 = 'docs-sandbox/swaggerblocks_younium-sandbox.md'
         output_file_2 = 'docs-sandbox/swaggerblocks_youniumv2-sandbox.md'
     
