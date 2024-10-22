@@ -2,22 +2,18 @@ name: Sandbox API Documentation Sync
 
 on:
   workflow_run:
-    workflows: ["ci-cd"] # This should be on the workflow that updates the swagger file.
+    workflows: ["ci-cd"]  # This should be on the workflow that updates the swagger file.
     types:
       - completed
   workflow_dispatch:  # To manually trigger the workflow in GitHub CLI
 
 jobs:
-  checkout:
+  sync_docs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-  fetch_openapi:
-    runs-on: ubuntu-latest
-    needs: checkout
-    steps:
       - name: Fetch OpenAPI definition
         run: |
           curl -o docs-sandbox/.gitbook/assets/younium-sandbox.json https://api.sandbox.younium.com/swagger/v2/swagger.json
@@ -25,7 +21,7 @@ jobs:
 
   generate_swagger_blocks:
     runs-on: ubuntu-latest
-    needs: fetch_openapi
+    needs: sync_docs
     env:
       API_ENVIRONMENT: sandbox  # Environment variable for the sandbox
     steps:
