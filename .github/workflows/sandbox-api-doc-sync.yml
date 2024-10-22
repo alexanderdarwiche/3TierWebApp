@@ -1,4 +1,4 @@
-name: Production API Documentation Sync
+name: Sandbox API Documentation Sync
 
 on:
   workflow_run:
