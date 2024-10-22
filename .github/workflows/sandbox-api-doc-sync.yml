@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: fetch_openapi
     env:
-      ENVIRONMENT: sandbox  # Environment variable for the sandbox
+      API_ENVIRONMENT: sandbox  # Environment variable for the sandbox
     steps:
       - name: Generate Swagger blocks
         run: |

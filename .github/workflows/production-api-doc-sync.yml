@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: fetch_openapi
     env:
-      ENVIRONMENT: production  # Default env variable is set to production in script. Remove to get dynamic result
+      API_ENVIRONMENT: production  # Default env variable is set to production in script. Remove to get dynamic result
     steps:
       - name: Generate Swagger blocks
         run: |
