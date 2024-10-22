@@ -54,17 +54,25 @@ def save_swagger_blocks(swagger_blocks, output_file):
         file.write("\n\n".join(swagger_blocks))
 
 if __name__ == "__main__":
-    # File paths for the OpenAPI files
-    openapi_file_1 = 'docs/.gitbook/assets/younium.json'  # Adjusted path for Younium v1
-    openapi_file_2 = 'docs/.gitbook/assets/youniumv2.json'  # Adjusted path for Younium v2
+    # Determine whether we're in production or sandbox based on environment variable
+    api_environment = os.getenv('API_ENVIRONMENT', 'sandbox')  # Default to production if not set
     
-    # Output markdown files
-    output_file_1 = 'docs/swaggerblocks_younium.md'  # Output for Younium v1
-    output_file_2 = 'docs/swaggerblocks_youniumv2.md'  # Output for Younium v2
+    if api_environment == 'production':
+        # Production environment paths
+        openapi_file_1 = 'docs/.gitbook/assets/younium.json'
+        openapi_file_2 = 'docs/.gitbook/assets/youniumv2.json'
+        output_file_1 = 'docs/swaggerblocks_younium.md'
+        output_file_2 = 'docs/swaggerblocks_youniumv2.md'
+    else:
+        # Sandbox environment paths
+        openapi_file_1 = 'docs-sandbox/.gitbook/assets/younium.json'
+        openapi_file_2 = 'docs-sandbox/.gitbook/assets/youniumv2.json'
+        output_file_1 = 'docs-sandbox/swaggerblocks_younium-sandbox.md'
+        output_file_2 = 'docs-sandbox/swaggerblocks_youniumv2-sandbox.md'
     
     # Generate Swagger blocks for both files
-    swagger_blocks_younium = generate_swagger_blocks(openapi_file_1, 'younium.json')
-    swagger_blocks_youniumv2 = generate_swagger_blocks(openapi_file_2, 'youniumv2.json')
+    swagger_blocks_younium = generate_swagger_blocks(openapi_file_1, os.path.basename(openapi_file_1))
+    swagger_blocks_youniumv2 = generate_swagger_blocks(openapi_file_2, os.path.basename(openapi_file_2))
     
     # Save each set of Swagger blocks to its respective file
     save_swagger_blocks(swagger_blocks_younium, output_file_1)
