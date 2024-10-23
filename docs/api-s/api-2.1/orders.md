@@ -11,6 +11,10 @@
 [openapi.json](./docs/.gitbook/assets/youniumv2.json)
 {% endswagger %}
 
+{% swagger src="../../.gitbook/assets/youniumv2.json" path="/Orders/Charges/{id}" method="patch" expanded="true" %}
+[openapi.json](./docs/.gitbook/assets/youniumv2.json)
+{% endswagger %}
+
 {% swagger src="../../.gitbook/assets/youniumv2.json" path="/Orders/{id}/charges" method="get" expanded="true" %}
 [openapi.json](./docs/.gitbook/assets/youniumv2.json)
 {% endswagger %}

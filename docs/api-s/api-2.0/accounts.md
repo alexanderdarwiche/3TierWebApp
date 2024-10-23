@@ -47,6 +47,10 @@
 [openapi.json](./docs/.gitbook/assets/younium.json)
 {% endswagger %}
 
+{% swagger src="../../.gitbook/assets/younium.json" path="/Accounts/{id}/Summary" method="get" expanded="true" %}
+[openapi.json](./docs/.gitbook/assets/younium.json)
+{% endswagger %}
+
 
 ---
 

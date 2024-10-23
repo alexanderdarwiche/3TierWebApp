@@ -1145,6 +1145,103 @@
         ]
       }
     },
+    "/Accounts/{id}/Summary": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Get Account summery.",
+        "operationId": "get-accounts-id-summary",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountSummeryResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "title": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "status": {
+                      "type": "integer",
+                      "format": "int32",
+                      "nullable": true
+                    },
+                    "detail": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "additionalProperties": { }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "youniumapi"
+            ]
+          }
+        ]
+      }
+    },
     "/Bookings": {
       "get": {
         "tags": [
@@ -7602,6 +7699,95 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "title": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "status": {
+                      "type": "integer",
+                      "format": "int32",
+                      "nullable": true
+                    },
+                    "detail": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "additionalProperties": { }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "youniumapi"
+            ]
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Orders"
+        ],
+        "operationId": "patch-orders-charges-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/merge-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UpdateOrderProductChargeRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
           },
           "401": {
             "description": "Unauthorized"
@@ -15039,6 +15225,85 @@
         },
         "additionalProperties": false
       },
+      "AccountSummeryResponse": {
+        "type": "object",
+        "properties": {
+          "cmrr": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CurrencyAmount"
+              }
+            ],
+            "nullable": true
+          },
+          "acv": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CurrencyAmount"
+              }
+            ],
+            "nullable": true
+          },
+          "emrr": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CurrencyAmount"
+              }
+            ],
+            "nullable": true
+          },
+          "oneTimeFees": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CurrencyAmount"
+              }
+            ],
+            "nullable": true
+          },
+          "tcv": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CurrencyAmount"
+              }
+            ],
+            "nullable": true
+          },
+          "accountBalance": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CurrencyAmount"
+              }
+            ],
+            "nullable": true
+          },
+          "lastInvoiced": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "externalERPId": {
+            "type": "string",
+            "nullable": true
+          },
+          "externalCRMId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "AccountType": {
         "enum": [
           "Customer",
@@ -15828,9 +16093,6 @@
         "additionalProperties": false
       },
       "ChangeOrderProductChargeDetailsRequest": {
-        "required": [
-          "toQuantity"
-        ],
         "type": "object",
         "properties": {
           "isInfinite": {
@@ -15893,12 +16155,7 @@
       },
       "ChangeOrderProductChargeRequest": {
         "required": [
-          "alignmentDate",
-          "charge",
-          "effectiveEndDate",
-          "effectiveStartDate",
-          "endMilestone",
-          "startMilestone"
+          "charge"
         ],
         "type": "object",
         "properties": {
@@ -16078,7 +16335,8 @@
           },
           "alignmentDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "taxTemplate": {
             "allOf": [
@@ -16120,11 +16378,13 @@
           },
           "effectiveStartDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "effectiveEndDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "startMilestone": {
             "allOf": [
@@ -16133,6 +16393,7 @@
               }
             ],
             "description": "Allowed as string input: Name, Milestone-Id.",
+            "nullable": true,
             "example": "MilestoneName"
           },
           "endMilestone": {
@@ -16142,6 +16403,7 @@
               }
             ],
             "description": "Allowed as string input: Name, Milestone-Id.",
+            "nullable": true,
             "example": "MilestoneName"
           },
           "estimatedUsage": {
@@ -16166,7 +16428,6 @@
       },
       "ChangeOrderProductRequest": {
         "required": [
-          "cancelationDate",
           "product"
         ],
         "type": "object",
@@ -16234,7 +16495,8 @@
           },
           "cancelationDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -17263,7 +17525,6 @@
       },
       "CreateCustomFieldConfigurationRequest": {
         "required": [
-          "entity",
           "fieldType"
         ],
         "type": "object",
@@ -17657,16 +17918,6 @@
         "additionalProperties": false
       },
       "CreateOrderProductChargeRequest": {
-        "required": [
-          "alignmentDate",
-          "deferredRevenueAccount",
-          "effectiveEndDate",
-          "effectiveStartDate",
-          "endMilestone",
-          "priceDetails",
-          "recognizedRevenueAccount",
-          "startMilestone"
-        ],
         "type": "object",
         "properties": {
           "charge": {
@@ -17699,19 +17950,21 @@
           },
           "effectiveStartDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "effectiveEndDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "startMilestone": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "endMilestone": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "quantity": {
             "type": "number",
@@ -17821,7 +18074,8 @@
           },
           "alignmentDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "taxTemplate": {
             "allOf": [
@@ -17852,6 +18106,7 @@
               }
             ],
             "description": "Allowed as string input: Code, FinancialAccount-Id.",
+            "nullable": true,
             "example": "1510"
           },
           "recognizedRevenueAccount": {
@@ -17861,6 +18116,7 @@
               }
             ],
             "description": "Allowed as string input: Code, FinancialAccount-Id.",
+            "nullable": true,
             "example": "1510"
           },
           "changeState": {
@@ -17879,7 +18135,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CreateOrderProductChargeDetailsRequest"
-            }
+            },
+            "nullable": true
           },
           "features": {
             "type": "array",
@@ -17933,7 +18190,7 @@
       },
       "CreateOrderProductRequest": {
         "required": [
-          "charges"
+          "product"
         ],
         "type": "object",
         "properties": {
@@ -17944,7 +18201,6 @@
               }
             ],
             "description": "Allowed as string input: ProductNumber, Product-Id, Name.",
-            "nullable": true,
             "example": "P-000001"
           },
           "chargePlan": {
@@ -17969,7 +18225,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CreateOrderProductChargeRequest"
-            }
+            },
+            "nullable": true
           },
           "externalERPId": {
             "type": "string",
@@ -18387,7 +18644,6 @@
       "CreateSubscriptionRequest": {
         "required": [
           "account",
-          "products",
           "status"
         ],
         "type": "object",
@@ -18560,7 +18816,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CreateOrderProductRequest"
-            }
+            },
+            "nullable": true
           },
           "milestones": {
             "type": "array",
@@ -21166,10 +21423,6 @@
         "additionalProperties": false
       },
       "OrderDiscountsRequest": {
-        "required": [
-          "endDate",
-          "startDate"
-        ],
         "type": "object",
         "properties": {
           "operation": {
@@ -21205,11 +21458,13 @@
           },
           "startDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "endDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "percent": {
             "maximum": 100,
@@ -25510,6 +25765,33 @@
           "invoicedToDate": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateOrderProductChargeRequest": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "remarks": {
+            "type": "string",
+            "nullable": true
+          },
+          "externalERPId": {
+            "type": "string",
+            "nullable": true
+          },
+          "externalCRMId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customFields": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
           }
         },
         "additionalProperties": false
