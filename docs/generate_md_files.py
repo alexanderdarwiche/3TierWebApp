@@ -45,7 +45,7 @@ def generate_md_files(input_file, output_dir):
 
 if __name__ == "__main__":
     # Determine whether we're in production or sandbox based on environment variable
-    api_environment = os.getenv('API_ENVIRONMENT', 'sandbox')  # Add a parameter "production" if you want to test scripts locally
+    api_environment = os.getenv('API_ENVIRONMENT')  # Add a parameter "production" if you want to test scripts locally
     
     if api_environment == 'production':
         swaggerblocks_file_1 = 'docs/swaggerblocks_younium.md'  # For Younium v1 in production
