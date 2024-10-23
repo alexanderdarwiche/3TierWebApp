@@ -23,15 +23,15 @@ jobs:
 
       - name: Generate Swagger blocks
         run: |
-          python docs/generate_swagger.py
+          python scripts/generate_swagger.py
           
       - name: Generate separate markdown files
         run: |
-          python docs/generate_md_files.py
+          python scripts/generate_md_files.py
           
       - name: Generate SUMMARY.md
         run: |
-          python docs/generate_summary.py
+          python scripts/generate_summary.py
 
       - name: Commit and push changes
         run: |
