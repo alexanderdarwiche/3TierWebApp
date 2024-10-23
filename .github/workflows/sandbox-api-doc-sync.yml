@@ -16,7 +16,7 @@ jobs:
 
       - name: Fetch OpenAPI definition
         run: |
-          curl -o docs-sandbox/.gitbook/assets/younium-sandbox.json https://api.sandbox.younium.com/swagger/v2/swagger.json
+          curl -o docs-sandbox/.gitbook/assets/younium-sandbox.json https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json
           curl -o docs-sandbox/.gitbook/assets/youniumv2-sandbox.json https://api.sandbox.younium.com/swagger/v2.1/swagger.json
 
   generate_docs:
