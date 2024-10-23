@@ -2,7 +2,7 @@ import os
 import re
 
 # Function to process Swagger blocks and generate markdown files
-def generate_md_files(input_file, output_dir, api_version):
+def generate_md_files(input_file, output_dir):
     # Ensure output directory exists
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -44,12 +44,20 @@ def generate_md_files(input_file, output_dir, api_version):
     print(f'Removed {input_file}')
 
 if __name__ == "__main__":
-    # Paths to Swagger block files and API version
-    swaggerblocks_file_1 = 'docs/swaggerblocks_younium.md'  # For Younium v1
-    swaggerblocks_file_2 = 'docs/swaggerblocks_youniumv2.md'  # For Younium v2
-    output_dir_1 = 'docs/api-s/api-2.0'  # Output directory for Younium v1 API
-    output_dir_2 = 'docs/api-s/api-2.1'  # Output directory for Younium v2 API
+    # Determine whether we're in production or sandbox based on environment variable
+    api_environment = os.getenv('API_ENVIRONMENT')  # Add a parameter "production" if you want to test scripts locally
+    
+    if api_environment == 'production':
+        swaggerblocks_file_1 = 'docs-production/swaggerblocks_younium.md'  # For Younium v1 in production
+        swaggerblocks_file_2 = 'docs-production/swaggerblocks_youniumv2.md'  # For Younium v2 in production
+        output_dir_1 = 'docs-production/api-s/api-2.0'  # Output directory for Younium v1 API in production
+        output_dir_2 = 'docs-production/api-s/api-2.1'  # Output directory for Younium v2 API in production
+    else:
+        swaggerblocks_file_1 = 'docs-sandbox/swaggerblocks_younium-sandbox.md'  # For Younium v1 in sandbox
+        swaggerblocks_file_2 = 'docs-sandbox/swaggerblocks_youniumv2-sandbox.md'  # For Younium v2 in sandbox
+        output_dir_1 = 'docs-sandbox/api-s/api-2.0'  # Output directory for Younium v1 API in sandbox
+        output_dir_2 = 'docs-sandbox/api-s/api-2.1'  # Output directory for Younium v2 API in sandbox
 
     # Generate Markdown files for both API versions
-    generate_md_files(swaggerblocks_file_1, output_dir_1, '2.0')
-    generate_md_files(swaggerblocks_file_2, output_dir_2, '2.1')
+    generate_md_files(swaggerblocks_file_1, output_dir_1)
+    generate_md_files(swaggerblocks_file_2, output_dir_2)

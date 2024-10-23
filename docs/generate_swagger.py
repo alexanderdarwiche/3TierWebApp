@@ -55,7 +55,7 @@ def save_swagger_blocks(swagger_blocks, output_file):
 
 if __name__ == "__main__":
     # Determine whether we're in production or sandbox based on environment variable
-    api_environment = os.getenv('API_ENVIRONMENT', 'production')  # Default to production if not set
+    api_environment = os.getenv('API_ENVIRONMENT', 'sandbox')  # Default to production if not set
     
     if api_environment == 'production':
         # Production environment paths

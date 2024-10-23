@@ -1,7 +1,15 @@
 ---
-description: 'Younium API - Version: 2.1 (Sandbox)'
-icon: book-open
+icon: none
+layout:
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
 ---
-
-# API 2.1
 

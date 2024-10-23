@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: fetch_openapi
     env:
-      API_ENVIRONMENT: production  # Default value in generate_swagger script is set to production 
+      API_ENVIRONMENT: sandbox  # Default value in generate_swagger script is set to production 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
 
       - name: Generate SUMMARY.md
         run: |
-          python docs/generate_summary.py
+          python docs/generate_summary_sandbox.py
 
   commit_and_push:
     runs-on: ubuntu-latest
