@@ -10,6 +10,8 @@ on:
 jobs:
   sync_docs:
     runs-on: ubuntu-latest
+    env:
+      API_ENVIRONMENT: production  # Default value in generate_swagger script is set to production
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,8 +22,6 @@ jobs:
           curl -o docs/.gitbook/assets/youniumv2.json https://api.younium.com/swagger/v2.1/swagger.json
 
       - name: Generate Swagger blocks
-        env:
-          API_ENVIRONMENT: production  # Default value in generate_swagger script is set to production
         run: |
           python docs/generate_swagger.py
           
