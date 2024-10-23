@@ -8,7 +8,7 @@ on:
   workflow_dispatch:  # To manually trigger the workflow in GitHub CLI
 
 jobs:
-  sync_docs:
+  fetch_openapi:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -19,32 +19,34 @@ jobs:
           curl -o docs-sandbox/.gitbook/assets/younium-sandbox.json https://api.sandbox.younium.com/swagger/v2/swagger.json
           curl -o docs-sandbox/.gitbook/assets/youniumv2-sandbox.json https://api.sandbox.younium.com/swagger/v2.1/swagger.json
 
+  generate_docs:
+    runs-on: ubuntu-latest
+    needs: fetch_openapi
+    env:
+      API_ENVIRONMENT: production  # Default value in generate_swagger script is set to production 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Generate Swagger blocks
-        env:
-          API_ENVIRONMENT: sandbox  # Environment variable for the sandbox
         run: |
           python docs/generate_swagger.py
 
-  generate_markdown_files:
-    runs-on: ubuntu-latest
-    needs: sync_docs
-    steps:
       - name: Generate separate markdown files
         run: |
           python docs/generate_md_files.py
 
-  generate_summary:
-    runs-on: ubuntu-latest
-    needs: generate_markdown_files
-    steps:
       - name: Generate SUMMARY.md
         run: |
           python docs/generate_summary.py
 
   commit_and_push:
     runs-on: ubuntu-latest
-    needs: generate_summary
+    needs: generate_docs
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Commit and push changes
         run: |
           git config --global user.name "GitHub Actions"
