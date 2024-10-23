@@ -4,7 +4,7 @@ import os
 def generate_summary_from_scratch(summary_file, api_versions_info):
     # Fixed base structure for SUMMARY.md
     base_structure = '''# Table of contents
-
+* [Welcome](README.md)
 * [API:s](api-s/README.md)
 '''
 
