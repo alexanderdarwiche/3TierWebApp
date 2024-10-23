@@ -16,5 +16,5 @@ layout:
 
 # Welcome
 
-Are you looking for the Developer Portal? **<a href="https://younium.gitbook.io/younium">Click here.</a>.**
+Are you looking for the Developer Portal? **<a href="https://younium.gitbook.io/younium">Click here.</a>**
 
