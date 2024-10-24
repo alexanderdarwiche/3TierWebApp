@@ -8,7 +8,7 @@ on:
   workflow_dispatch:  # To manually trigger the workflow in GitHub CLI
 
 jobs:
-  sync_docs:
+  Generate-documentation:
     runs-on: ubuntu-latest
     env:
       API_ENVIRONMENT: production  # Default value in generate_swagger script is set to production
@@ -18,8 +18,38 @@ jobs:
 
       - name: Fetch OpenAPI definition
         run: |
-          curl -o docs/.gitbook/assets/younium.json https://api.younium.com/swagger/v2/swagger.json
-          curl -o docs/.gitbook/assets/youniumv2.json https://api.younium.com/swagger/v2.1/swagger.json
+          curl -o docs/.gitbook/assets/new_younium.json https://api.younium.com/swagger/v2/swagger.json
+          curl -o docs/.gitbook/assets/new_youniumv2.json https://api.younium.com/swagger/v2.1/swagger.json
+    
+      - name: Compare OpenAPI JSON files and determine changes
+        id: check_changes
+        run: |
+          # Compare v1 JSON files
+          if diff -q docs/.gitbook/assets/younium.json docs/.gitbook/assets/new_younium.json > /dev/null; then
+            echo "v1: No changes detected"
+            echo "V1_CHANGED=false" >> $GITHUB_ENV  # No changes in v1
+          else
+            echo "v1: Changes detected"
+            echo "V1_CHANGED=true" >> $GITHUB_ENV  # Changes detected in v1
+          fi
+
+          # Compare v2 JSON files
+          if diff -q docs/.gitbook/assets/youniumv2.json docs/.gitbook/assets/new_youniumv2.json > /dev/null; then
+            echo "v2: No changes detected"
+            echo "V2_CHANGED=false" >> $GITHUB_ENV  # No changes in v2
+          else
+            echo "v2: Changes detected"
+            echo "V2_CHANGED=true" >> $GITHUB_ENV  # Changes detected in v2
+          fi
+
+      - name: Check if changes exist in either file
+        run: |
+          if [[ "$V1_CHANGED" == "false" && "$V2_CHANGED" == "false" ]]; then
+            echo "No changes in either file, stopping workflow."
+            exit 0  # Exit workflow if neither JSON file changed
+          else
+            echo "Changes detected, proceeding with documentation generation."
+          fi
 
       - name: Generate Swagger blocks
         run: |
@@ -32,6 +62,11 @@ jobs:
       - name: Generate SUMMARY.md
         run: |
           python scripts/generate_summary.py
+
+      - name: Cleanup old JSON files
+        run: |
+          mv docs/.gitbook/assets/new_younium.json docs/.gitbook/assets/younium.json
+          mv docs/.gitbook/assets/new_youniumv2.json docs/.gitbook/assets/youniumv2.json
 
       - name: Commit and push changes
         run: |

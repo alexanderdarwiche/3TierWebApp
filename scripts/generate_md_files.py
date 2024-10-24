@@ -3,11 +3,11 @@ import re
 
 # Function to process Swagger blocks and generate markdown files
 def generate_md_files(input_file, output_dir):
-    # Ensure output directory exists
+    
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    # Open the input file and read the contents
+    
     with open(input_file, 'r') as file:
         content = file.read()
 
@@ -48,15 +48,15 @@ if __name__ == "__main__":
     api_environment = os.getenv('API_ENVIRONMENT')  # Add a parameter "production" if you want to test scripts locally
     
     if api_environment == 'production':
-        swaggerblocks_file_1 = 'docs/swaggerblocks_younium.md'  # For Younium v1 in production
-        swaggerblocks_file_2 = 'docs/swaggerblocks_youniumv2.md'  # For Younium v2 in production
-        output_dir_1 = 'docs/api-s/api-2.0'  # Output directory for Younium v1 API in production
-        output_dir_2 = 'docs/api-s/api-2.1'  # Output directory for Younium v2 API in production
+        swaggerblocks_file_1 = 'docs/swaggerblocks_younium.md' 
+        swaggerblocks_file_2 = 'docs/swaggerblocks_youniumv2.md'  
+        output_dir_1 = 'docs/api-s/api-2.0'  
+        output_dir_2 = 'docs/api-s/api-2.1'  
     else:
-        swaggerblocks_file_1 = 'docs-sandbox/swaggerblocks_younium-sandbox.md'  # For Younium v1 in sandbox
-        swaggerblocks_file_2 = 'docs-sandbox/swaggerblocks_youniumv2-sandbox.md'  # For Younium v2 in sandbox
-        output_dir_1 = 'docs-sandbox/api-s/api-2.0'  # Output directory for Younium v1 API in sandbox
-        output_dir_2 = 'docs-sandbox/api-s/api-2.1'  # Output directory for Younium v2 API in sandbox
+        swaggerblocks_file_1 = 'docs-sandbox/swaggerblocks_younium-sandbox.md'  
+        swaggerblocks_file_2 = 'docs-sandbox/swaggerblocks_youniumv2-sandbox.md'  
+        output_dir_1 = 'docs-sandbox/api-s/api-2.0'  
+        output_dir_2 = 'docs-sandbox/api-s/api-2.1' 
 
     # Generate Markdown files for both API versions
     generate_md_files(swaggerblocks_file_1, output_dir_1)
