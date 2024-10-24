@@ -7,7 +7,7 @@ def categorize_paths(paths):
     
     # Categorize paths based on the first segment of the path (e.g., '/accounts/', '/orders/')
     for path, methods in paths.items():
-        category = path.split('/')[1]  # Assuming category is always the first segment in the path
+        category = path.split('/')[1] 
         if category not in categories:
             categories[category] = {}
         categories[category][path] = methods
