@@ -50,6 +50,12 @@ jobs:
           else
             echo "Changes detected, proceeding with documentation generation."
           fi
+          
+      - name: Cleanup old JSON files
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
+        run: |
+          mv docs/.gitbook/assets/new_younium.json docs/.gitbook/assets/younium.json
+          mv docs/.gitbook/assets/new_youniumv2.json docs/.gitbook/assets/youniumv2.json
 
       - name: Generate Swagger blocks
         if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
@@ -65,12 +71,6 @@ jobs:
         if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
           python scripts/generate_summary.py
-
-      - name: Cleanup old JSON files
-        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
-        run: |
-          mv docs/.gitbook/assets/new_younium.json docs/.gitbook/assets/younium.json
-          mv docs/.gitbook/assets/new_youniumv2.json docs/.gitbook/assets/youniumv2.json
 
       - name: Commit and push changes
         if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
