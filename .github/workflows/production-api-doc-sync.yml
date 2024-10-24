@@ -11,7 +11,7 @@ jobs:
   Generate-documentation:
     runs-on: ubuntu-latest
     env:
-      API_ENVIRONMENT: production  # Default value in generate_swagger script is set to production
+      API_ENVIRONMENT: production
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
         run: |
           curl -o docs/.gitbook/assets/new_younium.json https://api.younium.com/swagger/v2/swagger.json
           curl -o docs/.gitbook/assets/new_youniumv2.json https://api.younium.com/swagger/v2.1/swagger.json
-    
+
       - name: Compare OpenAPI JSON files and determine changes
         id: check_changes
         run: |
@@ -46,29 +46,34 @@ jobs:
         run: |
           if [[ "$V1_CHANGED" == "false" && "$V2_CHANGED" == "false" ]]; then
             echo "No changes in either file, stopping workflow."
-            exit 0  # Exit workflow if neither JSON file changed
+            exit 0
           else
             echo "Changes detected, proceeding with documentation generation."
           fi
 
       - name: Generate Swagger blocks
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
           python scripts/generate_swagger.py
-          
+
       - name: Generate separate markdown files
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
           python scripts/generate_md_files.py
-          
+
       - name: Generate SUMMARY.md
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
           python scripts/generate_summary.py
 
       - name: Cleanup old JSON files
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
           mv docs/.gitbook/assets/new_younium.json docs/.gitbook/assets/younium.json
           mv docs/.gitbook/assets/new_youniumv2.json docs/.gitbook/assets/youniumv2.json
 
       - name: Commit and push changes
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
