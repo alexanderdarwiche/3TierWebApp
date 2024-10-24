@@ -11,29 +11,69 @@ jobs:
   sync_docs:
     runs-on: ubuntu-latest
     env:
-      API_ENVIRONMENT: sandbox  # Default value in generate_swagger script is set to production
+      API_ENVIRONMENT: sandbox  # Default value in generate_swagger script is set to sandbox
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Fetch OpenAPI definition
         run: |
-          curl -o docs-sandbox/.gitbook/assets/younium-sandbox.json https://api.sandbox.younium.com/swagger/v2/swagger.json
-          curl -o docs-sandbox/.gitbook/assets/youniumv2-sandbox.json https://api.sandbox.younium.com/swagger/v2.1/swagger.json
+          curl -o docs-sandbox/.gitbook/assets/new_younium-sandbox.json https://api.sandbox.younium.com/swagger/v2/swagger.json
+          curl -o docs-sandbox/.gitbook/assets/new_youniumv2-sandbox.json https://api.sandbox.younium.com/swagger/v2.1/swagger.json
+
+      - name: Compare OpenAPI JSON files and determine changes
+        id: check_changes
+        run: |
+          # Compare v1 JSON files
+          if diff -q docs-sandbox/.gitbook/assets/younium-sandbox.json docs-sandbox/.gitbook/assets/new_younium-sandbox.json > /dev/null; then
+            echo "v1: No changes detected"
+            echo "V1_CHANGED=false" >> $GITHUB_ENV  # No changes in v1
+          else
+            echo "v1: Changes detected"
+            echo "V1_CHANGED=true" >> $GITHUB_ENV  # Changes detected in v1
+          fi
+
+          # Compare v2 JSON files
+          if diff -q docs-sandbox/.gitbook/assets/youniumv2-sandbox.json docs-sandbox/.gitbook/assets/new_youniumv2-sandbox.json > /dev/null; then
+            echo "v2: No changes detected"
+            echo "V2_CHANGED=false" >> $GITHUB_ENV  # No changes in v2
+          else
+            echo "v2: Changes detected"
+            echo "V2_CHANGED=true" >> $GITHUB_ENV  # Changes detected in v2
+          fi
+
+      - name: Check if changes exist in either file
+        run: |
+          if [[ "$V1_CHANGED" == "false" && "$V2_CHANGED" == "false" ]]; then
+            echo "No changes in either file, stopping workflow."
+            exit 0
+          else
+            echo "Changes detected, proceeding with documentation generation."
+          fi
 
       - name: Generate Swagger blocks
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
           python scripts/generate_swagger.py
 
       - name: Generate separate markdown files
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
           python scripts/generate_md_files.py
 
       - name: Generate SUMMARY.md
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
           python scripts/generate_summary_sandbox.py
 
+      - name: Cleanup old JSON files
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
+        run: |
+          mv docs-sandbox/.gitbook/assets/new_younium-sandbox.json docs-sandbox/.gitbook/assets/younium-sandbox.json
+          mv docs-sandbox/.gitbook/assets/new_youniumv2-sandbox.json docs-sandbox/.gitbook/assets/youniumv2-sandbox.json
+
       - name: Commit and push changes
+        if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
