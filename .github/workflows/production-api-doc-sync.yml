@@ -18,7 +18,7 @@ jobs:
 
       - name: Fetch OpenAPI definition
         run: |
-          curl -o docs/.gitbook/assets/new_younium.json https://production-backend-container.whitehill-62ea132a.swedencentral.azurecontainerapps.io/apispec_1.json
+          curl -o docs/.gitbook/assets/new_younium.json https://api.younium.com/swagger/v2/swagger.json
           curl -o docs/.gitbook/assets/new_youniumv2.json https://api.younium.com/swagger/v2.1/swagger.json
 
       - name: Compare OpenAPI JSON files and determine changes
@@ -50,7 +50,7 @@ jobs:
           else
             echo "Changes detected, proceeding with documentation generation."
           fi
-          
+
       - name: Cleanup old JSON files
         if: env.V1_CHANGED == 'true' || env.V2_CHANGED == 'true'  # Only run if there are changes
         run: |
